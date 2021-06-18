@@ -1,9 +1,7 @@
 package com.example.filmapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.filmapp.model.repository.Repository
-import com.example.filmapp.model.repository.RepositoryImpl
+import androidx.appcompat.app.AppCompatActivity
 import com.example.filmapp.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

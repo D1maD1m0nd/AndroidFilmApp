@@ -1,14 +1,16 @@
 package com.example.filmapp.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
+import com.example.filmapp.model.AppState
+import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.repository.RepositoryImpl
 import com.example.filmapp.ui.main.adapter.MainAdapter
 
@@ -19,9 +21,8 @@ class MainFragment : Fragment() {
     }
 
 
-    private lateinit var binding : MainFragmentBinding
+    private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
-
 
 
     override fun onCreateView(
@@ -29,22 +30,36 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
-        viewModel =  ViewModelProvider(this).get(MainViewModel :: class.java)
-        initRcView()
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val observer = Observer<AppState> {
+            renderData(it)
+        }
+        viewModel.getLiveData().observe(viewLifecycleOwner, observer)
+        viewModel.getFilm()
         return binding.root
     }
+    private fun renderData(appState: AppState) = with(binding) {
+        when (appState) {
+            is AppState.Success -> {
+               loadingLayout.visibility = View.GONE
+                val filmsData = appState.filmsData
+                initRcView(filmsData)
+            }
+            is AppState.Loading -> {
+                loadingLayout.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                loadingLayout.visibility = View.GONE
+            }
+        }
+    }
+    private fun initRcView(films : ArrayList<Film>) = with(binding) {
 
-    private fun initRcView() = with(binding){
-        val repository = RepositoryImpl()
-        rcView.layoutManager = GridLayoutManager(context,3)
+        rcView.layoutManager = GridLayoutManager(context, 3)
 
         val adapter = MainAdapter()
-        adapter.addFilms(repository.init().films)
+        adapter.addFilms(films)
         rcView.adapter = adapter
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
 }

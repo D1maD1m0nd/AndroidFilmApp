@@ -16,13 +16,14 @@ package com.example.filmapp.model.entites
  * @param popularity - средня популярность 1..100
  * @param poster - путь до изображения например site/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg
  */
-data class Film(val id : Int,
-                val title : String,
-                val overview : String,
-                val status : String,
-                val voteAverage : Double,
-                val dateReleased : String,
-                val runtime : Int,
-                val popularity : Double,
-                val poster : String
-                )
+data class Film(
+    val id: Int,
+    val title: String,
+    val overview: String,
+    val status: String,
+    val voteAverage: Double,
+    val dateReleased: String,
+    val runtime: Int,
+    val popularity: Double,
+    val poster: String
+)
