@@ -1,28 +1,42 @@
 package com.example.filmapp.ui.main.adapter
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
+    val films = ArrayList<Film>(50);
     class FilmViewHolder(item : View) : RecyclerView.ViewHolder(item) {
         val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film : Film) = with(binding) {
-
+            imagePosters.setImageResource(film.id)
+            postersTitle.text = film.title
+            score.text = film.voteAverage.toString()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
-        TODO("Not yet implemented")
+        val view = LayoutInflater.from(parent.context).inflate(
+                                                            R.layout.item_film_preview,
+                                                            parent,
+                                                            false)
+        return FilmViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(films[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return  films.size
+    }
+
+    fun addFilms(films : ArrayList<Film>) {
+        this.films.addAll(films)
+        notifyDataSetChanged()
     }
 }

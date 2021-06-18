@@ -24,4 +24,5 @@ data class Film(val id : Int,
                 val dateReleased : String,
                 val runtime : Int,
                 val popularity : Double,
-                val poster : String)
+                val poster : String
+                )
