@@ -12,35 +12,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
-            val containerNav : BottomNavigationView = findViewById(R.id.nav_view)
-            containerNav.setOnNavigationItemSelectedListener {item ->
-                when(item.itemId) {
-                    R.id.page_1 -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, MainFragment.newInstance())
-                            .commitNow()
-                        true
-                    }
+            initBottomNavigationMenu()
+        }
+    }
+    private fun initBottomNavigationMenu(){
+        val containerNav : BottomNavigationView = findViewById(R.id.nav_view)
 
-                    R.id.page_2 -> {
-                        //TODO удалить парметры в фабрике фрагмента
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, LikeFragment.newInstance("1", "2"))
-                            .commitNow()
-                        // Respond to navigation item 2 reselection
-                        true
-                    }
-                    R.id.page_3 -> {
-                        //TODO удалить парметры в фабрике фрагмента
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, SettingsFragment.newInstance("2", "3"))
-                            .commitNow()
-                        true
-                    }
-                    else -> false
+        containerNav.setOnNavigationItemSelectedListener {item ->
+            when(item.itemId) {
+                R.id.page_1 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MainFragment.newInstance())
+                        .commitNow()
+                    true
                 }
-
+                R.id.page_2 -> {
+                    //TODO удалить парметры в фабрике фрагмента
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, LikeFragment.newInstance("1", "2"))
+                        .commitNow()
+                    // Respond to navigation item 2 reselection
+                    true
+                }
+                R.id.page_3 -> {
+                    //TODO удалить парметры в фабрике фрагмента
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, SettingsFragment.newInstance("2", "3"))
+                        .commitNow()
+                    true
+                }
+                else -> false
             }
         }
+        //для открытия страницы по дефолту
+        containerNav.selectedItemId = R.id.page_1;
     }
 }
