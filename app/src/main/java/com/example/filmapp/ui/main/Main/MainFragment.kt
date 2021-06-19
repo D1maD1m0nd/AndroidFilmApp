@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main
+package com.example.filmapp.ui.main.Main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.model.repository.RepositoryImpl
-import com.example.filmapp.ui.main.adapter.MainAdapter
+import com.example.filmapp.ui.main.Main.adapter.MainAdapter
 
 class MainFragment : Fragment() {
 
@@ -56,7 +55,6 @@ class MainFragment : Fragment() {
     private fun initRcView(films : ArrayList<Film>) = with(binding) {
 
         rcView.layoutManager = GridLayoutManager(context, 3)
-
         val adapter = MainAdapter()
         adapter.addFilms(films)
         rcView.adapter = adapter
