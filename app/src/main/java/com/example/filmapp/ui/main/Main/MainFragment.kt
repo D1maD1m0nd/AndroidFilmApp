@@ -29,13 +29,17 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = Observer<AppState> {
             renderData(it)
         }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getFilm()
-        return binding.root
+        viewModel.getFilmLocalSource()
     }
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {

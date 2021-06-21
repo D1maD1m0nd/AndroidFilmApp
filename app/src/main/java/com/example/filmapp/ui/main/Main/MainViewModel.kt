@@ -12,7 +12,7 @@ class MainViewModel : ViewModel() {
     private val repositoryImpl : Repository = RepositoryImpl()
 
     fun getLiveData() = liveDataToObserve
-    fun getFilm() = getDataFromLocalSource()
+    fun getFilmLocalSource() = getDataFromLocalSource()
 
     private fun  getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading

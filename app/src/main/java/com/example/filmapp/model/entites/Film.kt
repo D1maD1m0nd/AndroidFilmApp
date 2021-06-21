@@ -1,5 +1,8 @@
 package com.example.filmapp.model.entites
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 
 /**
  * @author Avdoshin Dima
@@ -15,7 +18,11 @@ package com.example.filmapp.model.entites
  * @param runtime - продолжительность
  * @param popularity - средня популярность 1..100
  * @param poster - путь до изображения например site/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg
+ * @param budget - бюджет
+ * @param revenue - сборы
  */
+
+@Parcelize
 data class Film(
     val id: Int,
     val title: String,
@@ -25,5 +32,7 @@ data class Film(
     val dateReleased: String,
     val runtime: Int,
     val popularity: Double,
-    val poster: String
-)
+    val poster: String,
+    val budget : Double,
+    val revenue : Double
+) : Parcelable
