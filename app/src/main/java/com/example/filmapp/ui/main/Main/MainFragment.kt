@@ -8,12 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.ui.main.DescriptionDetail.DescriptionFragment
 import com.example.filmapp.ui.main.Main.adapter.MainAdapter
 
 class MainFragment : Fragment() {
+    interface OnItemViewClickListener{
+        fun onItemViewClick(film: Film)
+    }
 
     companion object {
         fun newInstance() = MainFragment()
@@ -22,7 +27,18 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
-
+    private val onListItemClickListener = object : OnItemViewClickListener {
+        override fun onItemViewClick(film: Film) {
+            activity?.supportFragmentManager?.let {
+                val bundle = Bundle()
+                bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, film)
+                it.beginTransaction()
+                    .replace(R.id.container, DescriptionFragment.newInstance(bundle))
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +75,7 @@ class MainFragment : Fragment() {
     private fun initRcView(films : ArrayList<Film>) = with(binding) {
 
         rcView.layoutManager = GridLayoutManager(context, 3)
-        val adapter = MainAdapter()
+        val adapter = MainAdapter(onListItemClickListener)
         adapter.addFilms(films)
         rcView.adapter = adapter
     }
