@@ -16,7 +16,7 @@ import com.example.filmapp.ui.main.DescriptionDetail.DescriptionFragment
 import com.example.filmapp.ui.main.Main.adapter.MainAdapter
 
 class MainFragment : Fragment() {
-    interface OnItemViewClickListener{
+    interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
 
@@ -57,10 +57,11 @@ class MainFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getFilmLocalSource()
     }
+
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-               loadingLayout.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
                 val filmsData = appState.filmsData
                 initRcView(filmsData)
             }
@@ -72,7 +73,8 @@ class MainFragment : Fragment() {
             }
         }
     }
-    private fun initRcView(films : ArrayList<Film>) = with(binding) {
+
+    private fun initRcView(films: ArrayList<Film>) = with(binding) {
 
         rcView.layoutManager = GridLayoutManager(context, 3)
         val adapter = MainAdapter(onListItemClickListener)

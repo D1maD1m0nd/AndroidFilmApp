@@ -9,7 +9,8 @@ import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.Main.MainFragment
 
-class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) : RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
+class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
+    RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
     val films = ArrayList<Film>(50)
 
     inner class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
