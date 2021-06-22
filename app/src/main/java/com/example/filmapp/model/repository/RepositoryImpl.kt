@@ -15,6 +15,9 @@ class RepositoryImpl : Repository {
         R.drawable.starwarsposters
     )
 
+    init {
+        init()
+    }
     private fun init(): Repository {
         for (i in 1..40) {
             films.add(
@@ -45,7 +48,7 @@ class RepositoryImpl : Repository {
     }
 
     override fun getFilmCollectionFromLocalStorage(): ArrayList<Film> {
-        init()
+
         return films
     }
 
