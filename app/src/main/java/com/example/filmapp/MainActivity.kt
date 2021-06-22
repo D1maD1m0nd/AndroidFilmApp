@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.page_1 -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MainFragment.newInstance())
-                        .commitNow()
+                        .commitAllowingStateLoss()
                     true
                 }
                 R.id.page_2 -> {
                     //TODO удалить парметры в фабрике фрагмента
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, LikeFragment.newInstance("1", "2"))
-                        .commitNow()
+                        .commitAllowingStateLoss()
                     // Respond to navigation item 2 reselection
                     true
                 }
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     //TODO удалить парметры в фабрике фрагмента
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, SettingsFragment.newInstance("2", "3"))
-                        .commitNow()
+                        .commitAllowingStateLoss()
                     true
                 }
                 else -> false
