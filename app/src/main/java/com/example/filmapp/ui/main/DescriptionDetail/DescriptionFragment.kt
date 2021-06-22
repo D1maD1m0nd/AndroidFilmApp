@@ -38,6 +38,7 @@ class DescriptionFragment : Fragment() {
 
     companion object {
         const val BUNDLE_EXTRA = "FilmData"
+        @JvmStatic
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()
             fragment.arguments = bundle

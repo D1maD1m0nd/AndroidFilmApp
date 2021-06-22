@@ -11,7 +11,7 @@ import com.example.filmapp.ui.main.Main.MainFragment
 
 class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
-    val films = ArrayList<Film>(50)
+    private var films = ArrayList<Film>(40)
 
     inner class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFilmPreviewBinding.bind(item)
@@ -43,7 +43,7 @@ class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewCl
     }
 
     fun addFilms(films: ArrayList<Film>) {
-        this.films.addAll(films)
+        this.films = films
         notifyDataSetChanged()
     }
 }
