@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.Settings
+package com.example.filmapp.ui.main.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

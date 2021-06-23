@@ -6,10 +6,11 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
 
-class MainViewModel : ViewModel() {
+class FilmViewModel : ViewModel() {
     companion object {
-        const val timeout = 1000L
+        const val TIMEOUT = 1000L
     }
+
     // TODO: Implement the ViewModel
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private val repositoryImpl: Repository = RepositoryImpl()
@@ -21,7 +22,7 @@ class MainViewModel : ViewModel() {
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         Thread {
-            Thread.sleep(timeout)
+            Thread.sleep(TIMEOUT)
             liveDataToObserve.postValue(AppState.Success(repositoryImpl.getFilmCollectionFromLocalStorage()))
         }.start()
     }

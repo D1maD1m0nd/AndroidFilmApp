@@ -12,23 +12,23 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.DescriptionDetail.DescriptionFragment
+import com.example.filmapp.ui.main.descriptionDetail.DescriptionFragment
 import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
 
-class MainFragment : Fragment() {
+class FilmFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = MainFragment()
+        fun newInstance() = FilmFragment()
     }
 
 
     private lateinit var binding: MainFragmentBinding
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel: FilmViewModel by lazy {
+        ViewModelProvider(this).get(FilmViewModel::class.java)
     }
     private val onListItemClickListener = object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {

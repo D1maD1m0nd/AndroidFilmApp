@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.DescriptionDetail
+package com.example.filmapp.ui.main.descriptionDetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,6 +36,7 @@ class DescriptionFragment : Fragment() {
 
     companion object {
         const val BUNDLE_EXTRA = "FilmData"
+
         @JvmStatic
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()
