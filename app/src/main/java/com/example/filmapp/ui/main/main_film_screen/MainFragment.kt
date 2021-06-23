@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.Main
+package com.example.filmapp.ui.main.main_film_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.DescriptionDetail.DescriptionFragment
-import com.example.filmapp.ui.main.Main.adapter.MainAdapter
+import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
 
 class MainFragment : Fragment() {
     interface OnItemViewClickListener {

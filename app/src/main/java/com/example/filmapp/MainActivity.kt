@@ -2,23 +2,27 @@ package com.example.filmapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.filmapp.databinding.MainActivityBinding
 import com.example.filmapp.ui.main.Likes.LikeFragment
-import com.example.filmapp.ui.main.Main.MainFragment
+import com.example.filmapp.ui.main.main_film_screen.MainFragment
 import com.example.filmapp.ui.main.Settings.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var bind : MainActivityBinding
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        bind = MainActivityBinding.inflate(layoutInflater)
+        setContentView(bind.root)
         if (savedInstanceState == null) {
             initBottomNavigationMenu()
         }
     }
-    private fun initBottomNavigationMenu(){
-        val containerNav : BottomNavigationView = findViewById(R.id.nav_view)
+    private fun initBottomNavigationMenu() = with(bind){
 
-        containerNav.setOnNavigationItemSelectedListener {item ->
+
+        navView.setOnNavigationItemSelectedListener {item ->
             when(item.itemId) {
                 R.id.page_1 -> {
                     supportFragmentManager.beginTransaction()
@@ -45,6 +49,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         //для открытия страницы по дефолту
-        containerNav.selectedItemId = R.id.page_1;
+        navView.selectedItemId = R.id.page_1;
     }
 }
