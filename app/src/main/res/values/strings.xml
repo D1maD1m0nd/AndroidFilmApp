@@ -6,13 +6,4 @@
     <string name="settings">настройки</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title">Заголовок</string>
-    <string name="genre">Жанры</string>
-    <string name="duration">Длительность</string>
-    <string name="vote_average">Оценка</string>
-    <string name="budget">Бюджет</string>
-    <string name="revenue">Сборы</string>
-    <string name="date_realise">Дата релиза</string>
-    <string name="description">Описание</string>
-    <string name="list_films">Список фильмов</string>
 </resources>

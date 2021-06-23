@@ -7,21 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.Main.MainFragment
 
-class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
-    RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
-    private var films = ArrayList<Film>(40)
+class MainAdapter : RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
+    val films = ArrayList<Film>(50)
 
-    inner class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film: Film) = with(binding) {
             imagePosters.setImageResource(film.id)
             postersTitle.text = film.title
             score.text = film.voteAverage.toString()
-            root.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(film)
-            }
         }
     }
 
@@ -43,7 +38,7 @@ class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewCl
     }
 
     fun addFilms(films: ArrayList<Film>) {
-        this.films = films
+        this.films.addAll(films)
         notifyDataSetChanged()
     }
 }
