@@ -8,13 +8,13 @@ import com.example.filmapp.model.repository.RepositoryImpl
 
 class MainViewModel : ViewModel() {
     // TODO: Implement the ViewModel
-    private val liveDataToObserve : MutableLiveData<AppState> = MutableLiveData()
-    private val repositoryImpl : Repository = RepositoryImpl()
+    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    private val repositoryImpl: Repository = RepositoryImpl()
 
     fun getLiveData() = liveDataToObserve
-    fun getFilm() = getDataFromLocalSource()
+    fun getFilmLocalSource() = getDataFromLocalSource()
 
-    private fun  getDataFromLocalSource() {
+    private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         Thread {
             Thread.sleep(1000)
