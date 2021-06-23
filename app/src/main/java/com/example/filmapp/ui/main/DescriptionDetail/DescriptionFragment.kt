@@ -22,17 +22,15 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-        if (film != null) {
-            title.text = film.title
+        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+            title.text = it.title
             genre.text = "Жанры: Боевик, комедия, мелодрама"
-            duration.text = "Длительность: ${film.runtime}"
-            vote.text = "Оценка: ${film.voteAverage}"
-            budget.text = "Бюжет: ${film.budget}"
-            revenue.text = "Сборы: ${film.revenue}"
-            dateRealise.text = "Дата выпуска: ${film.dateReleased}"
-            description.text = "Описание: ${film.overview}"
-
+            duration.text = "Длительность: ${it.runtime}"
+            vote.text = "Оценка: ${it.voteAverage}"
+            budget.text = "Бюжет: ${it.budget}"
+            revenue.text = "Сборы: ${it.revenue}"
+            dateRealise.text = "Дата выпуска: ${it.dateReleased}"
+            description.text = "Описание: ${it.overview}"
         }
     }
 

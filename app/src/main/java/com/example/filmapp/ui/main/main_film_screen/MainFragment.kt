@@ -27,7 +27,9 @@ class MainFragment : Fragment() {
 
 
     private lateinit var binding: MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
     private val onListItemClickListener = object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
             activity?.supportFragmentManager?.let {
@@ -51,7 +53,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = Observer<AppState> {
             renderData(it)
         }
