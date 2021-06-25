@@ -20,18 +20,22 @@ class DescriptionFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
-            title.text = it.title
-            genre.text = "Жанры: Боевик, комедия, мелодрама"
-            duration.text = "Длительность: ${it.runtime}"
-            vote.text = "Оценка: ${it.voteAverage}"
-            budget.text = "Бюжет: ${it.budget}"
-            revenue.text = "Сборы: ${it.revenue}"
-            dateRealise.text = "Дата выпуска: ${it.dateReleased}"
-            description.text = "Описание: ${it.overview}"
+        //сделано для того что бы не писать отдельную переменную под возвращающее значение binding
+        binding.apply {
+            arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+                title.text = it.title
+                genre.text = "Жанры: Боевик, комедия, мелодрама"
+                duration.text = "Длительность: ${it.runtime}"
+                vote.text = "Оценка: ${it.voteAverage}"
+                budget.text = "Бюжет: ${it.budget}"
+                revenue.text = "Сборы: ${it.revenue}"
+                dateRealise.text = "Дата выпуска: ${it.dateReleased}"
+                description.text = "Описание: ${it.overview}"
+            }
         }
+
     }
 
     companion object {

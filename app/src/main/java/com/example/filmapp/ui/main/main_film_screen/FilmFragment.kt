@@ -79,9 +79,7 @@ class FilmFragment : Fragment() {
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
 
         rcView.layoutManager = GridLayoutManager(context, 3)
-        val adapter = MainAdapter(onListItemClickListener)
-        adapter.addFilms(films)
-        rcView.adapter = adapter
+        rcView.adapter = MainAdapter(onListItemClickListener).apply {  addFilms(films) }
     }
 
 }
