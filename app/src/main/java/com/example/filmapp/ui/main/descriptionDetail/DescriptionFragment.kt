@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.DescriptionDetail
+package com.example.filmapp.ui.main.descriptionDetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,24 +20,27 @@ class DescriptionFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-        if (film != null) {
-            title.text = film.title
-            genre.text = "Жанры: Боевик, комедия, мелодрама"
-            duration.text = "Длительность: ${film.runtime}"
-            vote.text = "Оценка: ${film.voteAverage}"
-            budget.text = "Бюжет: ${film.budget}"
-            revenue.text = "Сборы: ${film.revenue}"
-            dateRealise.text = "Дата выпуска: ${film.dateReleased}"
-            description.text = "Описание: ${film.overview}"
-
+        //сделано для того что бы не писать отдельную переменную под возвращающее значение binding
+        binding.apply {
+            arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+                title.text = it.title
+                genre.text = "Жанры: Боевик, комедия, мелодрама"
+                duration.text = "Длительность: ${it.runtime}"
+                vote.text = "Оценка: ${it.voteAverage}"
+                budget.text = "Бюжет: ${it.budget}"
+                revenue.text = "Сборы: ${it.revenue}"
+                dateRealise.text = "Дата выпуска: ${it.dateReleased}"
+                description.text = "Описание: ${it.overview}"
+            }
         }
+
     }
 
     companion object {
         const val BUNDLE_EXTRA = "FilmData"
+
         @JvmStatic
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()

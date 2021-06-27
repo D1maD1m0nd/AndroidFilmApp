@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.Main
+package com.example.filmapp.ui.main.main_film_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,22 +12,24 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.DescriptionDetail.DescriptionFragment
-import com.example.filmapp.ui.main.Main.adapter.MainAdapter
+import com.example.filmapp.ui.main.descriptionDetail.DescriptionFragment
+import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
 
-class MainFragment : Fragment() {
+class FilmFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = MainFragment()
+        fun newInstance() = FilmFragment()
     }
 
 
     private lateinit var binding: MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: FilmViewModel by lazy {
+        ViewModelProvider(this).get(FilmViewModel::class.java)
+    }
     private val onListItemClickListener = object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
             activity?.supportFragmentManager?.let {
@@ -51,7 +53,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = Observer<AppState> {
             renderData(it)
         }
@@ -78,9 +79,7 @@ class MainFragment : Fragment() {
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
 
         rcView.layoutManager = GridLayoutManager(context, 3)
-        val adapter = MainAdapter(onListItemClickListener)
-        adapter.addFilms(films)
-        rcView.adapter = adapter
+        rcView.adapter = MainAdapter(onListItemClickListener).apply {  addFilms(films) }
     }
 
 }

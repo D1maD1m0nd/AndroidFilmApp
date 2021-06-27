@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 class RepositoryImpl : Repository {
     private val films = ArrayList<Film>(50)
-    private val imageId = listOf<Int>(
+    private val imageId = listOf(
         R.drawable.posters,
         R.drawable.kinkongposters,
         R.drawable.skaterposters,
@@ -18,6 +18,7 @@ class RepositoryImpl : Repository {
     init {
         init()
     }
+
     private fun init(): Repository {
         for (i in 1..40) {
             films.add(
@@ -43,14 +44,11 @@ class RepositoryImpl : Repository {
         TODO("Not yet implemented")
     }
 
-    override fun getFilmCollectionFromServer(): ArrayList<Film> {
-        return films
-    }
+    override fun getFilmCollectionFromServer() = films
 
-    override fun getFilmCollectionFromLocalStorage(): ArrayList<Film> {
 
-        return films
-    }
+    override fun getFilmCollectionFromLocalStorage() = films
+
 
     override fun getFilmFromLocalStorage(): Film {
         TODO("Not yet implemented")

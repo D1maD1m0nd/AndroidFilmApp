@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.Main.adapter
+package com.example.filmapp.ui.main.main_film_screen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.Main.MainFragment
+import com.example.filmapp.ui.main.main_film_screen.FilmFragment
 
-class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
+class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
     private var films = ArrayList<Film>(40)
 
@@ -34,13 +34,11 @@ class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewCl
         return FilmViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) =
         holder.bind(films[position])
-    }
 
-    override fun getItemCount(): Int {
-        return films.size
-    }
+
+    override fun getItemCount() = films.size
 
     fun addFilms(films: ArrayList<Film>) {
         this.films = films
