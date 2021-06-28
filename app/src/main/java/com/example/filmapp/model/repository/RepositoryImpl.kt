@@ -8,7 +8,6 @@ import kotlin.random.Random
 
 
 class RepositoryImpl : Repository {
-    private val films = ArrayList<Film>(50)
     private val imageId = listOf(
         R.drawable.posters,
         R.drawable.kinkongposters,
@@ -17,43 +16,48 @@ class RepositoryImpl : Repository {
         R.drawable.starwarsposters
     )
 
-    init {
-        init()
-    }
-    private fun init(): Repository {
-        Thread( Runnable{
-            for (i in 1..10) {
-                val film  = getFilmFromServer((550 + i).toString());
+    private fun init(): ArrayList<Film> {
+        val films = ArrayList<Film>(50)
+        for (i in 1..10) {
+            val film  = getFilmFromServer((550 + i).toString());
+            if(film != null) {
                 films.add(
                     film
                 )
             }
-        }).start()
 
-        return this
+        }
+
+        return films
     }
 
-    override fun getFilmFromServer(id: String): Film {
+    override fun getFilmFromServer(id: String): Film? {
         val dto = FilmLoader.loadFilmFromId(id)
-        return Film(
-            dto?.id,
-            dto?.title,
-            dto?.overview,
-            dto?.status,
-            dto?.vote_average,
-            dto?.release_date,
-            dto?.runtime,
-            dto?.popularity,
-            dto?.backdrop_path,
-            dto?.budget,
-            dto?.revenue
-        )
+        if(dto != null) {
+            return Film(
+                dto.id,
+                dto.title,
+                dto.overview,
+                dto.status,
+                dto.vote_average,
+                dto.release_date,
+                dto.runtime,
+                dto.popularity,
+                dto.backdrop_path,
+                dto.budget,
+                dto.revenue,
+                dto.genres
+            )
+        } else {
+            return null
+        }
+
     }
 
-    override fun getFilmCollectionFromServer() = films
+    override fun getFilmCollectionFromServer() = init()
 
 
-    override fun getFilmCollectionFromLocalStorage() = films
+    override fun getFilmCollectionFromLocalStorage() = init()
 
 
     override fun getFilmFromLocalStorage(): Film {

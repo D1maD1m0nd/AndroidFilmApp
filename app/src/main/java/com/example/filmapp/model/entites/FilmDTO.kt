@@ -10,7 +10,10 @@ data class FilmDTO(
     val runtime: Int?,
     val popularity: Double?,
     val backdrop_path: String?,
-    val budget: Double?,
-    val revenue: Double?
+    val budget: Int?,
+    val revenue: Int?,
+    val genres : ArrayList<Genre>
+
 ) {
+
 }
