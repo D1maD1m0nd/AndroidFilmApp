@@ -27,7 +27,7 @@ class DescriptionFragment : Fragment() {
         binding.apply {
             arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
                 var genresFormats = ""
-                it.genre.forEach({genresFormats += it.name + ","})
+                it.genre?.forEach({ genresFormats += it.name + "," })
                 title.text = it.title
                 genre.text = "Жанры: ${genresFormats.trimEnd(',')}"
                 duration.text = "Длительность: ${it.runtime} m"

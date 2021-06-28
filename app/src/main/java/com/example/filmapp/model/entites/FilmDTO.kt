@@ -12,7 +12,7 @@ data class FilmDTO(
     val backdrop_path: String?,
     val budget: Int?,
     val revenue: Int?,
-    val genres : ArrayList<Genre>
+    val genres : ArrayList<Genre>?
 
 ) {
 

@@ -3,6 +3,7 @@ package com.example.filmapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.filmapp.databinding.MainActivityBinding
+import com.example.filmapp.ui.main.home.HomeFragment
 import com.example.filmapp.ui.main.likes.LikeFragment
 import com.example.filmapp.ui.main.main_film_screen.FilmFragment
 import com.example.filmapp.ui.main.settings.SettingsFragment
@@ -19,10 +20,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomNavigationMenu() = with(bind) {
-
-
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, HomeFragment.newInstance())
+                        .commitAllowingStateLoss()
+                    true
+                }
                 R.id.main -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, FilmFragment.newInstance())

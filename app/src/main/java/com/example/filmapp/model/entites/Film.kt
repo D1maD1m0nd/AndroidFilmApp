@@ -35,5 +35,5 @@ data class Film(
     val poster: String?,
     val budget: Int?,
     val revenue: Int?,
-    val genre : ArrayList<Genre>
+    val genre : ArrayList<Genre>?
 ) : Parcelable

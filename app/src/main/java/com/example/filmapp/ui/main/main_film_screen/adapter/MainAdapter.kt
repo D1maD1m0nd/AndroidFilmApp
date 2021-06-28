@@ -41,7 +41,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
     override fun getItemCount() = films.size
 
     fun addFilms(films: ArrayList<Film>) {
-        this.films = films
+        films.also { this.films = it }
         notifyDataSetChanged()
     }
 }
