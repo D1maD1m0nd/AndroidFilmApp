@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.home.Adapters.Item
 import com.example.filmapp.ui.main.home.Adapters.MainHomeAdapter
+import java.lang.Exception
 
 
 class HomeFragment : Fragment() {
@@ -53,6 +55,9 @@ class HomeFragment : Fragment() {
                 //loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
+                Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
+
+
                 //loadingLayout.visibility = View.GONE
             }
         }

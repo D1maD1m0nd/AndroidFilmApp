@@ -7,6 +7,8 @@ import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
 import com.example.filmapp.ui.main.main_film_screen.FilmViewModel
 import kotlinx.coroutines.*
+import java.io.FileNotFoundException
+import java.net.UnknownHostException
 
 class HomeFragmentViewModel : ViewModel(), CoroutineScope by MainScope() {
     companion object {
@@ -23,8 +25,13 @@ class HomeFragmentViewModel : ViewModel(), CoroutineScope by MainScope() {
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         launch {
-            val job = async(Dispatchers.IO) { repositoryImpl.getPopularityFilmsFromServer() }
-            liveDataToObserve.value = AppState.Success(job.await())
+            try {
+                val job = async(Dispatchers.IO) { repositoryImpl.getPopularityFilmsFromServer() }
+                liveDataToObserve.value = AppState.Success(job.await())
+            } catch (e : Exception){
+                liveDataToObserve.value = AppState.Error(e)
+            }
+
         }
     }
 }

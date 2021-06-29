@@ -12,7 +12,6 @@ import com.example.filmapp.databinding.HomeFragmentItemBinding
 
 class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
     private var items = ArrayList<Item>(50)
-    private val viewPool = RecycledViewPool()
 
     inner class HomePageViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding: HomeFragmentItemBinding = HomeFragmentItemBinding.bind(item)

@@ -4,6 +4,7 @@ import com.example.filmapp.R
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.rest.FilmLoader
 import com.example.filmapp.model.rest.FilmLoader.loadFilmList
+import java.lang.Exception
 
 
 class RepositoryImpl : Repository {
@@ -57,9 +58,8 @@ class RepositoryImpl : Repository {
 
     private fun getFilmPopularCollection(): ArrayList<Film> {
         val filmsRes = ArrayList<Film>(50)
-        val films = loadFilmList()
-        if (films != null) {
-            for (dto in films.results) {
+            val films = loadFilmList()
+            for (dto in films?.results!!) {
                 filmsRes.add(
                     Film(
                         dto.id,
@@ -77,11 +77,15 @@ class RepositoryImpl : Repository {
                     )
                 )
             }
-        }
+
+
         return filmsRes
     }
 
     override fun getPopularityFilmsFromServer() = getFilmPopularCollection()
+
+
+
 
 
     override fun getFilmCollectionFromLocalStorage() = init()
