@@ -6,8 +6,9 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
 import com.example.filmapp.ui.main.main_film_screen.FilmViewModel
+import kotlinx.coroutines.*
 
-class HomeFragmentViewModel : ViewModel() {
+class HomeFragmentViewModel : ViewModel(), CoroutineScope by MainScope() {
     companion object {
         const val TIMEOUT = 1000L
     }
@@ -21,9 +22,9 @@ class HomeFragmentViewModel : ViewModel() {
 
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
-        Thread {
-            Thread.sleep(FilmViewModel.TIMEOUT)
-            liveDataToObserve.postValue(AppState.Success(repositoryImpl.getPopularityFilmsFromServer()))
-        }.start()
+        launch {
+            val job = async(Dispatchers.IO) { repositoryImpl.getPopularityFilmsFromServer() }
+            liveDataToObserve.value = AppState.Success(job.await())
+        }
     }
 }

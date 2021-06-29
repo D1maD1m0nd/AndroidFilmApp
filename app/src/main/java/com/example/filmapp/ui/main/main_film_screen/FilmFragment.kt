@@ -14,8 +14,10 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.descriptionDetail.DescriptionFragment
 import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-class FilmFragment : Fragment() {
+class FilmFragment : Fragment(){
     interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
