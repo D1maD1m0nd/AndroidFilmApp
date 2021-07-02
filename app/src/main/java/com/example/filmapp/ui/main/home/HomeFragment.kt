@@ -14,7 +14,6 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.home.adapters.Item
 import com.example.filmapp.ui.main.home.adapters.MainHomeAdapter
-import java.lang.Exception
 
 
 class HomeFragment : Fragment() {

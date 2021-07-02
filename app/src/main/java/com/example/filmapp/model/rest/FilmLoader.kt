@@ -52,7 +52,7 @@ object FilmLoader {
                 }
                 return Gson().fromJson(lines, FilmsDTO::class.java)
             } catch (e: Exception) {
-                throw Exception()
+                e.printStackTrace()
             }
             finally {
                 urlConnection.disconnect()

@@ -15,4 +15,5 @@
     <string name="date_realise">Дата релиза</string>
     <string name="description">Описание</string>
     <string name="list_films">Список фильмов</string>
+    <string name="no_connection_internet">Нет соединения с интернетом</string>
 </resources>

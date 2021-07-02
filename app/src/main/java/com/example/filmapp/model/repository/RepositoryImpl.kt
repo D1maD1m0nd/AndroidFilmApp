@@ -59,23 +59,27 @@ class RepositoryImpl : Repository {
     private fun getFilmPopularCollection(): ArrayList<Film> {
         val filmsRes = ArrayList<Film>(50)
             val films = loadFilmList()
-            for (dto in films?.results!!) {
-                filmsRes.add(
-                    Film(
-                        dto.id,
-                        dto.title,
-                        dto.overview,
-                        dto.status,
-                        dto.vote_average,
-                        dto.release_date,
-                        dto.runtime,
-                        dto.popularity,
-                        dto.backdrop_path,
-                        dto.budget,
-                        dto.revenue,
-                        dto.genres
+            if(films != null) {
+                for (dto in films.results) {
+
+                    filmsRes.add(
+                        Film(
+                            dto.id,
+                            dto.title,
+                            dto.overview,
+                            dto.status,
+                            dto.vote_average,
+                            dto.release_date,
+                            dto.runtime,
+                            dto.popularity,
+                            dto.backdrop_path,
+                            dto.budget,
+                            dto.revenue,
+                            dto.genres
+                        )
                     )
-                )
+                 }
+
             }
 
 
