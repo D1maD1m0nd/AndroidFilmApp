@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmapp.databinding.FragmentHomeBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.home.Adapters.Item
-import com.example.filmapp.ui.main.home.Adapters.MainHomeAdapter
+import com.example.filmapp.ui.main.home.adapters.Item
+import com.example.filmapp.ui.main.home.adapters.MainHomeAdapter
 import java.lang.Exception
 
 
