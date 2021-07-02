@@ -14,8 +14,10 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.ui.main.descriptionDetail.DescriptionFragment
 import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-class FilmFragment : Fragment() {
+class FilmFragment : Fragment(){
     interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
@@ -78,8 +80,8 @@ class FilmFragment : Fragment() {
 
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
 
-        rcView.layoutManager = GridLayoutManager(context, 3)
-        rcView.adapter = MainAdapter(onListItemClickListener).apply {  addFilms(films) }
+        rcView.layoutManager = GridLayoutManager(context, 2)
+        rcView.adapter = MainAdapter(onListItemClickListener).apply { addFilms(films) }
     }
 
 }

@@ -16,7 +16,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
     inner class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film: Film) = with(binding) {
-            imagePosters.setImageResource(film.id)
+            imagePosters.setImageResource(R.drawable.kinkongposters)
             postersTitle.text = film.title
             score.text = film.voteAverage.toString()
             root.setOnClickListener {
@@ -41,7 +41,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
     override fun getItemCount() = films.size
 
     fun addFilms(films: ArrayList<Film>) {
-        this.films = films
+        films.also { this.films = it }
         notifyDataSetChanged()
     }
 }

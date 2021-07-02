@@ -22,15 +22,18 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //сделано для того что бы не писать отдельную переменную под возвращающее значение binding
         binding.apply {
             arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+                var genresFormats = ""
+                it.genre?.forEach({ genresFormats += it.name + "," })
                 title.text = it.title
-                genre.text = "Жанры: Боевик, комедия, мелодрама"
-                duration.text = "Длительность: ${it.runtime}"
+                genre.text = "Жанры: ${genresFormats.trimEnd(',')}"
+                duration.text = "Длительность: ${it.runtime} m"
                 vote.text = "Оценка: ${it.voteAverage}"
-                budget.text = "Бюжет: ${it.budget}"
-                revenue.text = "Сборы: ${it.revenue}"
+                budget.text = "Бюжет: ${it.budget}$"
+                revenue.text = "Сборы: ${it.revenue}$"
                 dateRealise.text = "Дата выпуска: ${it.dateReleased}"
                 description.text = "Описание: ${it.overview}"
             }

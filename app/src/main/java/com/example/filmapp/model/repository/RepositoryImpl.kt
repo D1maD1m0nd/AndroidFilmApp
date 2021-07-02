@@ -2,11 +2,12 @@ package com.example.filmapp.model.repository
 
 import com.example.filmapp.R
 import com.example.filmapp.model.entites.Film
-import kotlin.random.Random
+import com.example.filmapp.model.rest.FilmLoader
+import com.example.filmapp.model.rest.FilmLoader.loadFilmList
+import java.lang.Exception
 
 
 class RepositoryImpl : Repository {
-    private val films = ArrayList<Film>(50)
     private val imageId = listOf(
         R.drawable.posters,
         R.drawable.kinkongposters,
@@ -15,39 +16,79 @@ class RepositoryImpl : Repository {
         R.drawable.starwarsposters
     )
 
-    init {
-        init()
-    }
-
-    private fun init(): Repository {
-        for (i in 1..40) {
-            films.add(
-                Film(
-                    imageId[Random.nextInt(0, 4)],
-                    "film #$i",
-                    "Жизнь здорово потрепала нервишки Майкла Брайса, так что с карьерой телохранителя он решил завязать. Психотерапевт посоветовал ему отправиться на тихий курорт, вооружившись лишь книжкой и плейлистом расслабляющей музыки. Но и здесь его находит самая безумная в мире парочка: киллер мирового уровня и настоящий магнит неприятностей Дариус Кинкейд и его супруга Соня — буйная дамочка не робкого десятка. Преступный синдикат устроил на них охоту, и Майклу, при всем желании остаться в стороне, придется вернуться к старому ремеслу и снова стать телохранителем. На этот раз — жены киллера!",
-                    "Released",
-                    8.9,
-                    "18.06.2021",
-                    120,
-                    30.5,
-                    "Poster string",
-                    5000000.0,
-                    6000000.0
+    private fun init(): ArrayList<Film> {
+        val films = ArrayList<Film>(50)
+        for (i in 1..10) {
+            val film = getFilmFromServer((550 + i).toString())
+            if (film != null) {
+                films.add(
+                    film
                 )
-            )
+            }
+
         }
-        return this
+
+        return films
     }
 
-    override fun getFilmFromServer(): Film {
-        TODO("Not yet implemented")
+    override fun getFilmFromServer(id: String): Film? {
+        val dto = FilmLoader.loadFilmFromId(id)
+        if (dto != null) {
+            return Film(
+                dto.id,
+                dto.title,
+                dto.overview,
+                dto.status,
+                dto.vote_average,
+                dto.release_date,
+                dto.runtime,
+                dto.popularity,
+                dto.backdrop_path,
+                dto.budget,
+                dto.revenue,
+                dto.genres
+            )
+        } else {
+            return null
+        }
+
     }
 
-    override fun getFilmCollectionFromServer() = films
+    override fun getFilmCollectionFromServer() = init()
+
+    private fun getFilmPopularCollection(): ArrayList<Film> {
+        val filmsRes = ArrayList<Film>(50)
+            val films = loadFilmList()
+            for (dto in films?.results!!) {
+                filmsRes.add(
+                    Film(
+                        dto.id,
+                        dto.title,
+                        dto.overview,
+                        dto.status,
+                        dto.vote_average,
+                        dto.release_date,
+                        dto.runtime,
+                        dto.popularity,
+                        dto.backdrop_path,
+                        dto.budget,
+                        dto.revenue,
+                        dto.genres
+                    )
+                )
+            }
 
 
-    override fun getFilmCollectionFromLocalStorage() = films
+        return filmsRes
+    }
+
+    override fun getPopularityFilmsFromServer() = getFilmPopularCollection()
+
+
+
+
+
+    override fun getFilmCollectionFromLocalStorage() = init()
 
 
     override fun getFilmFromLocalStorage(): Film {
