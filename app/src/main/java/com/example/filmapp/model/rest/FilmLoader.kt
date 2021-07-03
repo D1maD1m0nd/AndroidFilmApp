@@ -2,6 +2,7 @@ package com.example.filmapp.model.rest
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.filmapp.BuildConfig.FILM_API_KEY
 import com.example.filmapp.model.entites.FilmDTO
 import com.example.filmapp.model.entites.FilmsDTO
 import com.google.gson.Gson
@@ -15,8 +16,7 @@ import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
 object FilmLoader {
-    private const val API_KEY = "87c56b62284c5106bcde3abec2025d2a"
-    private const val TIMEOUT_CONNECTION = 10000
+    const val TIMEOUT_CONNECTION = 10000
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getLines(reader: BufferedReader): String {
@@ -38,7 +38,7 @@ object FilmLoader {
     fun loadFilmList(): FilmsDTO? {
         try {
             val uri =
-                URL("https://api.themoviedb.org/3/movie/popular?api_key=$API_KEY&language=en-US&page=1")
+                URL("https://api.themoviedb.org/3/movie/popular?api_key=$FILM_API_KEY&language=en-US&page=1")
             lateinit var urlConnection: HttpsURLConnection
             try {
                 urlConnection = uri.openConnection() as HttpsURLConnection
@@ -66,7 +66,7 @@ object FilmLoader {
 
     fun loadFilmFromId(id: String): FilmDTO? {
         try {
-            val uri = URL("https://api.themoviedb.org/3/movie/$id?api_key=$API_KEY")
+            val uri = URL("https://api.themoviedb.org/3/movie/$id?api_key=$FILM_API_KEY")
             lateinit var urlConnection: HttpsURLConnection
             try {
                 urlConnection = uri.openConnection() as HttpsURLConnection

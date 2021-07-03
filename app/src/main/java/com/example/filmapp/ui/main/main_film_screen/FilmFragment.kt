@@ -43,7 +43,7 @@ class FilmFragment : Fragment(){
                 val bundle = Bundle()
                 bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, film)
                 it.beginTransaction()
-                    .replace(R.id.container, DescriptionFragment.newInstance(bundle))
+                    .add(R.id.container, DescriptionFragment.newInstance(bundle))
                     .addToBackStack(null)
                     .commitAllowingStateLoss()
             }
