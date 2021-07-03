@@ -1,11 +1,10 @@
-package com.example.filmapp.ui.main.home.Adapters
+package com.example.filmapp.framework.main.ui.home.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.filmapp.R
 import com.example.filmapp.databinding.HomeFragmentItemBinding
 

@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.main_film_screen
+package com.example.filmapp.framework.main.ui.main_film_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
+import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
+import com.example.filmapp.framework.main.ui.main_film_screen.adapter.MainAdapter
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.descriptionDetail.DescriptionFragment
-import com.example.filmapp.ui.main.main_film_screen.adapter.MainAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FilmFragment : Fragment(){
+class FilmFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(film: Film)
     }
@@ -29,9 +27,8 @@ class FilmFragment : Fragment(){
 
 
     private lateinit var binding: MainFragmentBinding
-    private val viewModel: FilmViewModel by lazy {
-        ViewModelProvider(this).get(FilmViewModel::class.java)
-    }
+    private val viewModel: FilmViewModel by viewModel()
+
     private val onListItemClickListener = object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
             activity?.supportFragmentManager?.let {

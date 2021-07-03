@@ -1,6 +1,5 @@
 package com.example.filmapp.model.repository
 
-import com.example.filmapp.R
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.rest.FilmLoader
 import com.example.filmapp.model.rest.FilmLoader.loadFilmList

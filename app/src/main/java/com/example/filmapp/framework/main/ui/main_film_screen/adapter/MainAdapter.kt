@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.main_film_screen.adapter
+package com.example.filmapp.framework.main.ui.main_film_screen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.main_film_screen.FilmFragment
+import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {

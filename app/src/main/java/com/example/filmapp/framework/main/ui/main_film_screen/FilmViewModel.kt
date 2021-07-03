@@ -1,20 +1,19 @@
-package com.example.filmapp.ui.main.main_film_screen
+package com.example.filmapp.framework.main.ui.main_film_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.repository.Repository
-import com.example.filmapp.model.repository.RepositoryImpl
 import kotlinx.coroutines.*
 
-class FilmViewModel : ViewModel(), CoroutineScope by MainScope() {
+class FilmViewModel(private val repositoryImpl: Repository) : ViewModel(),
+    CoroutineScope by MainScope() {
     companion object {
         const val TIMEOUT = 1000L
     }
 
     // TODO: Implement the ViewModel
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-    private val repositoryImpl: Repository = RepositoryImpl()
 
 
     fun getLiveData() = liveDataToObserve

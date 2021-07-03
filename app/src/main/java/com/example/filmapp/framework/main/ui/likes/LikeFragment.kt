@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.likes
+package com.example.filmapp.framework.main.ui.likes
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
