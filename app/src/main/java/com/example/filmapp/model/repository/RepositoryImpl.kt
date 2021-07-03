@@ -4,20 +4,13 @@ import com.example.filmapp.R
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.rest.FilmLoader
 import com.example.filmapp.model.rest.FilmLoader.loadFilmList
-import java.lang.Exception
 
 
 class RepositoryImpl : Repository {
-    private val imageId = listOf(
-        R.drawable.posters,
-        R.drawable.kinkongposters,
-        R.drawable.skaterposters,
-        R.drawable.starwarsposters,
-        R.drawable.starwarsposters
-    )
+    private val MAX_CAPACITY = 50
 
     private fun init(): ArrayList<Film> {
-        val films = ArrayList<Film>(50)
+        val films = ArrayList<Film>(MAX_CAPACITY)
         for (i in 1..10) {
             val film = getFilmFromServer((550 + i).toString())
             if (film != null) {
@@ -57,9 +50,10 @@ class RepositoryImpl : Repository {
     override fun getFilmCollectionFromServer() = init()
 
     private fun getFilmPopularCollection(): ArrayList<Film> {
-        val filmsRes = ArrayList<Film>(50)
-            val films = loadFilmList()
-            for (dto in films?.results!!) {
+        val filmsRes = ArrayList<Film>(MAX_CAPACITY)
+        val films = loadFilmList()
+        if (films != null) {
+            for (dto in films.results) {
                 filmsRes.add(
                     Film(
                         dto.id,
@@ -77,15 +71,12 @@ class RepositoryImpl : Repository {
                     )
                 )
             }
-
+        }
 
         return filmsRes
     }
 
     override fun getPopularityFilmsFromServer() = getFilmPopularCollection()
-
-
-
 
 
     override fun getFilmCollectionFromLocalStorage() = init()
