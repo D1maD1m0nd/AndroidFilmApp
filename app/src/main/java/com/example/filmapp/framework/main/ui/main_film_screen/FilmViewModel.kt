@@ -8,9 +8,6 @@ import kotlinx.coroutines.*
 
 class FilmViewModel(private val repositoryImpl: Repository) : ViewModel(),
     CoroutineScope by MainScope() {
-    companion object {
-        const val TIMEOUT = 1000L
-    }
 
     // TODO: Implement the ViewModel
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()

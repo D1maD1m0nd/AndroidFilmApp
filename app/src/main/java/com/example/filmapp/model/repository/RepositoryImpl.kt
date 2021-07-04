@@ -1,8 +1,11 @@
 package com.example.filmapp.model.repository
 
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.model.entites.FilmDTO
+import com.example.filmapp.model.entites.FilmsDTO
 import com.example.filmapp.model.rest.FilmLoader
 import com.example.filmapp.model.rest.FilmLoader.loadFilmList
+import com.example.filmapp.model.rest.FilmRepository
 
 
 class RepositoryImpl : Repository {
@@ -75,7 +78,9 @@ class RepositoryImpl : Repository {
         return filmsRes
     }
 
-    override fun getPopularityFilmsFromServer() = getFilmPopularCollection()
+    override fun getPopularityFilmsFromServer( callback: retrofit2.Callback<FilmsDTO>){
+        FilmRepository.getFilms(1,"en-US",callback)
+    }
 
 
     override fun getFilmCollectionFromLocalStorage() = init()
@@ -83,5 +88,28 @@ class RepositoryImpl : Repository {
 
     override fun getFilmFromLocalStorage(): Film {
         TODO("Not yet implemented")
+    }
+
+    override fun convertDtoFromLocal(list: ArrayList<FilmDTO>): ArrayList<Film> {
+        val listLocal = ArrayList<Film>(50)
+        for (dto in list) {
+            listLocal.add(
+                Film(
+                    dto.id,
+                    dto.title,
+                    dto.overview,
+                    dto.status,
+                    dto.vote_average,
+                    dto.release_date,
+                    dto.runtime,
+                    dto.popularity,
+                    dto.backdrop_path,
+                    dto.budget,
+                    dto.revenue,
+                    dto.genres
+                )
+            )
+        }
+        return listLocal
     }
 }

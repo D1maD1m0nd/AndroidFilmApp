@@ -36,8 +36,8 @@ class HomeFragment : Fragment() {
             renderData(it)
         }
 
-        viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getFilmLocalSource()
+        viewModel.liveDataToObserve.observe(viewLifecycleOwner, observer)
+        viewModel.getPopularFilms()
     }
 
     private fun renderData(appState: AppState) {
