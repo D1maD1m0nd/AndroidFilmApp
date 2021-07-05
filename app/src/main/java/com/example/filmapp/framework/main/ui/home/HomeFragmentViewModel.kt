@@ -3,7 +3,7 @@ package com.example.filmapp.framework.main.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmapp.model.AppState
-import com.example.filmapp.model.entites.FilmsDTO
+import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
 import kotlinx.coroutines.*
@@ -22,9 +22,9 @@ class HomeFragmentViewModel(private val repositoryImpl: Repository = RepositoryI
     }
 
     private val callBack = object :
-        Callback<FilmsDTO> {
-        override fun onResponse(call: Call<FilmsDTO>, response: Response<FilmsDTO>) {
-            val serverResponse: FilmsDTO? = response.body()
+        Callback<FilmsList> {
+        override fun onResponse(call: Call<FilmsList>, response: Response<FilmsList>) {
+            val serverResponse: FilmsList? = response.body()
             liveDataToObserve.postValue(
                 if (response.isSuccessful && serverResponse != null) {
                     checkResponse(serverResponse)
@@ -34,16 +34,16 @@ class HomeFragmentViewModel(private val repositoryImpl: Repository = RepositoryI
             )
         }
 
-        override fun onFailure(call: Call<FilmsDTO>, t: Throwable) {
+        override fun onFailure(call: Call<FilmsList>, t: Throwable) {
             liveDataToObserve.postValue(AppState.Error(Throwable(t.message ?: REQUEST_ERROR)))
         }
 
-        private fun checkResponse(serverResponse: FilmsDTO): AppState {
+        private fun checkResponse(serverResponse: FilmsList): AppState {
             val fact = serverResponse.results
             return if (fact.isEmpty()) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
-                AppState.Success(repositoryImpl.convertDtoFromLocal(fact))
+                AppState.Success(fact)
             }
         }
     }

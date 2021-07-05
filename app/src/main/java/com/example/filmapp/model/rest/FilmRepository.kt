@@ -1,8 +1,7 @@
 package com.example.filmapp.model.rest
 
 import com.example.filmapp.BuildConfig
-import com.example.filmapp.model.entites.FilmDTO
-import com.example.filmapp.model.entites.FilmsDTO
+import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.utils.ApiUtils
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -19,7 +18,7 @@ object FilmRepository {
         adapter.create(FilmApi :: class.java)
     }
 
-    fun getFilms(page : Int, langCode : String , callback : Callback<FilmsDTO>) {
+    fun getFilms(page : Int, langCode : String , callback : Callback<FilmsList>) {
         api.getFilmDtoFromId(page, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
     }
 }

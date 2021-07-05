@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.filmapp.databinding.FragmentDescriptionBinding
 import com.example.filmapp.model.entites.Film
+import com.squareup.picasso.Picasso
 
 
 class DescriptionFragment : Fragment() {
     private lateinit var binding: FragmentDescriptionBinding
-
+    private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +37,11 @@ class DescriptionFragment : Fragment() {
                 revenue.text = "Сборы: ${it.revenue}$"
                 dateRealise.text = "Дата выпуска: ${it.dateReleased}"
                 description.text = "Описание: ${it.overview}"
+                Picasso
+                    .get()
+                    .load("$imageStorageUrl${it.poster}")
+                    .fit()
+                    .into(postersTitle);
             }
         }
 

@@ -1,6 +1,7 @@
 package com.example.filmapp.model.entites
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
@@ -28,12 +29,16 @@ data class Film(
     val title: String?,
     val overview: String?,
     val status: String?,
+    @SerializedName("vote_average")
     val voteAverage: Double?,
+    @SerializedName("release_date")
     val dateReleased: String?,
     val runtime: Int?,
     val popularity: Double?,
+    @SerializedName("backdrop_path")
     val poster: String?,
     val budget: Int?,
     val revenue: Int?,
+    @SerializedName("genres")
     val genre : ArrayList<Genre>?
 ) : Parcelable

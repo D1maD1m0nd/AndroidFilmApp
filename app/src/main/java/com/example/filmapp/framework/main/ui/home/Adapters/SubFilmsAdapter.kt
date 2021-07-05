@@ -7,13 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.model.entites.Film
+import com.squareup.picasso.Picasso
 
 class SubFilmsAdapter : RecyclerView.Adapter<SubFilmsAdapter.FilmsViewHolder>() {
     class FilmsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+        private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
         private val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film: Film) = with(binding) {
             postersTitle.text = film.title
             imagePosters.setImageResource(R.drawable.kinkongposters)
+            Picasso
+                .get()
+                .load("$imageStorageUrl${film.poster}")
+                .into(imagePosters);
+            score.text = film.voteAverage.toString()
         }
     }
 

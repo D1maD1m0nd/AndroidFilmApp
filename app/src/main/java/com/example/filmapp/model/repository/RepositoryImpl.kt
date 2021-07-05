@@ -1,10 +1,8 @@
 package com.example.filmapp.model.repository
 
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.model.entites.FilmDTO
-import com.example.filmapp.model.entites.FilmsDTO
+import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.FilmLoader
-import com.example.filmapp.model.rest.FilmLoader.loadFilmList
 import com.example.filmapp.model.rest.FilmRepository
 
 
@@ -14,71 +12,23 @@ class RepositoryImpl : Repository {
     private fun init(): ArrayList<Film> {
         val films = ArrayList<Film>(MAX_CAPACITY)
         for (i in 1..10) {
-            val film = getFilmFromServer((550 + i).toString())
-            if (film != null) {
+            getFilmFromServer((550 + i).toString())?.let {
                 films.add(
-                    film
+                    it
                 )
             }
-
         }
 
         return films
     }
 
     override fun getFilmFromServer(id: String): Film? {
-        val dto = FilmLoader.loadFilmFromId(id)
-        if (dto != null) {
-            return Film(
-                dto.id,
-                dto.title,
-                dto.overview,
-                dto.status,
-                dto.vote_average,
-                dto.release_date,
-                dto.runtime,
-                dto.popularity,
-                dto.backdrop_path,
-                dto.budget,
-                dto.revenue,
-                dto.genres
-            )
-        } else {
-            return null
-        }
+        return FilmLoader.loadFilmFromId(id)
 
     }
-
     override fun getFilmCollectionFromServer() = init()
 
-    private fun getFilmPopularCollection(): ArrayList<Film> {
-        val filmsRes = ArrayList<Film>(MAX_CAPACITY)
-        val films = loadFilmList()
-        if (films != null) {
-            for (dto in films.results) {
-                filmsRes.add(
-                    Film(
-                        dto.id,
-                        dto.title,
-                        dto.overview,
-                        dto.status,
-                        dto.vote_average,
-                        dto.release_date,
-                        dto.runtime,
-                        dto.popularity,
-                        dto.backdrop_path,
-                        dto.budget,
-                        dto.revenue,
-                        dto.genres
-                    )
-                )
-            }
-        }
-
-        return filmsRes
-    }
-
-    override fun getPopularityFilmsFromServer( callback: retrofit2.Callback<FilmsDTO>){
+    override fun getPopularityFilmsFromServer( callback: retrofit2.Callback<FilmsList>){
         FilmRepository.getFilms(1,"en-US",callback)
     }
 
@@ -88,28 +38,5 @@ class RepositoryImpl : Repository {
 
     override fun getFilmFromLocalStorage(): Film {
         TODO("Not yet implemented")
-    }
-
-    override fun convertDtoFromLocal(list: ArrayList<FilmDTO>): ArrayList<Film> {
-        val listLocal = ArrayList<Film>(50)
-        for (dto in list) {
-            listLocal.add(
-                Film(
-                    dto.id,
-                    dto.title,
-                    dto.overview,
-                    dto.status,
-                    dto.vote_average,
-                    dto.release_date,
-                    dto.runtime,
-                    dto.popularity,
-                    dto.backdrop_path,
-                    dto.budget,
-                    dto.revenue,
-                    dto.genres
-                )
-            )
-        }
-        return listLocal
     }
 }

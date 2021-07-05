@@ -11,7 +11,13 @@ import com.example.filmapp.databinding.HomeFragmentItemBinding
 
 class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
     private var items = ArrayList<Item>(50)
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     inner class HomePageViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding: HomeFragmentItemBinding = HomeFragmentItemBinding.bind(item)
         fun bind(item: Item) = with(binding) {
