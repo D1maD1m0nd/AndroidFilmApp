@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentHomeBinding
+import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
 import com.example.filmapp.framework.main.ui.home.Adapters.Item
 import com.example.filmapp.framework.main.ui.home.Adapters.MainHomeAdapter
+import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,6 +21,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
+    private val onListItemClickListener = object : FilmFragment.OnItemViewClickListener {
+        override fun onItemViewClick(film: Film) {
+            activity?.supportFragmentManager?.let {
+                val bundle = Bundle()
+                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 550)
+                it.beginTransaction()
+                    .add(R.id.container, DescriptionFragment.newInstance(bundle))
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
+            }
+        }
+    }
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModel()
 
@@ -62,7 +77,7 @@ class HomeFragment : Fragment() {
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
         val items = ArrayList<Item>().apply { add(Item(films, "Популярные")) }
         rcView.layoutManager = LinearLayoutManager(context)
-        rcView.adapter = MainHomeAdapter().apply { addItems(items) }
+        rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
     }
 
     companion object {

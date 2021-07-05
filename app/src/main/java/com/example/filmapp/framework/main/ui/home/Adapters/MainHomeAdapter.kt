@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.HomeFragmentItemBinding
+import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 
-class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
+class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
     private var items = ArrayList<Item>(50)
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -29,9 +30,8 @@ class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            val adapterChild = SubFilmsAdapter()
+            val adapterChild = SubFilmsAdapter(onItemViewClickListener)
             subRcView.adapter = adapterChild
-            //holder.rcView.setRecycledViewPool(viewPool)
             adapterChild.addFilms(item.films)
         }
     }

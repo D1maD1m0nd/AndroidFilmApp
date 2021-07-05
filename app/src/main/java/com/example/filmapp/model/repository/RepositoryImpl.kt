@@ -4,6 +4,7 @@ import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.FilmLoader
 import com.example.filmapp.model.rest.FilmRepository
+import retrofit2.Callback
 
 
 class RepositoryImpl : Repository {
@@ -32,6 +33,9 @@ class RepositoryImpl : Repository {
         FilmRepository.getFilms(1,"en-US",callback)
     }
 
+    override fun getFilmFromId(id: Int, callback: Callback<Film>) {
+        FilmRepository.getFilmForId(id, "en-US", callback)
+    }
 
     override fun getFilmCollectionFromLocalStorage() = init()
 

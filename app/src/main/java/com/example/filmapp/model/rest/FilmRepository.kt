@@ -1,6 +1,7 @@
 package com.example.filmapp.model.rest
 
 import com.example.filmapp.BuildConfig
+import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.utils.ApiUtils
 import retrofit2.Callback
@@ -19,6 +20,10 @@ object FilmRepository {
     }
 
     fun getFilms(page : Int, langCode : String , callback : Callback<FilmsList>) {
-        api.getFilmDtoFromId(page, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
+        api.getFilmDtoPopular(page, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
+    }
+
+    fun getFilmForId(id : Int, langCode : String , callback : Callback<Film>) {
+        api.getFilmFromId(id, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
     }
 }

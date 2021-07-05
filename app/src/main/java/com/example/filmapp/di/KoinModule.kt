@@ -1,5 +1,6 @@
 package com.example.filmapp.di
 
+import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionViewModel
 import com.example.filmapp.framework.main.ui.home.HomeFragmentViewModel
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmViewModel
 import com.example.filmapp.model.repository.Repository
@@ -15,4 +16,6 @@ val appModule = module {
     viewModel { FilmViewModel(get()) }
 
     viewModel { HomeFragmentViewModel(get()) }
+
+    viewModel { DescriptionViewModel(get()) }
 }
