@@ -17,8 +17,8 @@ interface FilmApi {
 
     @GET("{id}")
     fun getFilmFromId(
-        @Path("id") id : Int,
+        @Path("id") id: Int,
         @Query("language") langCode: String,
         @Query("api_key") key: String
-    ) : Call<Film>
+    ): Call<Film>
 }

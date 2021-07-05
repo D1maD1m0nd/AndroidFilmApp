@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
-import com.example.filmapp.model.entites.Film
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
+import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
 
 class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
@@ -24,7 +24,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
             Picasso
                 .get()
                 .load("$imageStorageUrl${film.poster}")
-                .into(imagePosters);
+                .into(imagePosters)
             root.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(film)
             }

@@ -10,7 +10,8 @@ import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
 
-class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) : RecyclerView.Adapter<SubFilmsAdapter.FilmsViewHolder>() {
+class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+    RecyclerView.Adapter<SubFilmsAdapter.FilmsViewHolder>() {
     inner class FilmsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
         private val binding = ItemFilmPreviewBinding.bind(item)
@@ -20,7 +21,7 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
             Picasso
                 .get()
                 .load("$imageStorageUrl${film.poster}")
-                .into(imagePosters);
+                .into(imagePosters)
             score.text = film.voteAverage.toString()
             root.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(film)

@@ -27,10 +27,11 @@ class RepositoryImpl : Repository {
         return FilmLoader.loadFilmFromId(id)
 
     }
+
     override fun getFilmCollectionFromServer() = init()
 
-    override fun getPopularityFilmsFromServer( callback: retrofit2.Callback<FilmsList>){
-        FilmRepository.getFilms(1,"en-US",callback)
+    override fun getPopularityFilmsFromServer(callback: retrofit2.Callback<FilmsList>) {
+        FilmRepository.getFilms(1, "en-US", callback)
     }
 
     override fun getFilmFromId(id: Int, callback: Callback<Film>) {

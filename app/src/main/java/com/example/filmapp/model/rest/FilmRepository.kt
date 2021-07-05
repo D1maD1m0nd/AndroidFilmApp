@@ -9,21 +9,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object FilmRepository {
-    private val api : FilmApi by lazy {
+    private val api: FilmApi by lazy {
         val adapter = Retrofit.Builder()
             .baseUrl(ApiUtils.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(ApiUtils.getOkHTTPBuilderWithHeaders())
             .build()
 
-        adapter.create(FilmApi :: class.java)
+        adapter.create(FilmApi::class.java)
     }
 
-    fun getFilms(page : Int, langCode : String , callback : Callback<FilmsList>) {
-        api.getFilmDtoPopular(page, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
+    fun getFilms(page: Int, langCode: String, callback: Callback<FilmsList>) {
+        api.getFilmDtoPopular(page, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
     }
 
-    fun getFilmForId(id : Int, langCode : String , callback : Callback<Film>) {
-        api.getFilmFromId(id, langCode,BuildConfig.FILM_API_KEY ).enqueue(callback)
+    fun getFilmForId(id: Int, langCode: String, callback: Callback<Film>) {
+        api.getFilmFromId(id, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
     }
 }

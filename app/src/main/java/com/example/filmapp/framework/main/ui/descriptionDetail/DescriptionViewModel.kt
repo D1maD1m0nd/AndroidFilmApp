@@ -13,11 +13,13 @@ import retrofit2.Response
 private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
 private const val CORRUPTED_DATA = "Неполные данные"
-class DescriptionViewModel(private val repositoryImpl: Repository = RepositoryImpl(),
-                           val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-) : ViewModel(){
 
-    fun getFilmForId(id : Int) {
+class DescriptionViewModel(
+    private val repositoryImpl: Repository = RepositoryImpl(),
+    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+) : ViewModel() {
+
+    fun getFilmForId(id: Int) {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getFilmFromId(id, callBack)
     }

@@ -18,6 +18,7 @@ object FilmLoader {
     private const val REQUEST_METHOD = "GET"
     private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
     private const val CAPACITY_STRING = 1024
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getLines(reader: BufferedReader): String {
         return reader.lines().collect(Collectors.joining("\n"))
@@ -53,8 +54,7 @@ object FilmLoader {
                 return Gson().fromJson(lines, FilmsList::class.java)
             } catch (e: Exception) {
                 throw Exception()
-            }
-            finally {
+            } finally {
                 urlConnection.disconnect()
             }
         } catch (e: MalformedURLException) {

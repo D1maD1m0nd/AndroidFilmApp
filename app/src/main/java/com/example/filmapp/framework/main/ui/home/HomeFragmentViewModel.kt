@@ -6,15 +6,20 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
 private const val CORRUPTED_DATA = "Неполные данные"
-class HomeFragmentViewModel(private val repositoryImpl: Repository = RepositoryImpl(),
-                            val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()) :
+
+class HomeFragmentViewModel(
+    private val repositoryImpl: Repository = RepositoryImpl(),
+    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+) :
     ViewModel(), CoroutineScope by MainScope() {
     fun getPopularFilms() {
         liveDataToObserve.value = AppState.Loading

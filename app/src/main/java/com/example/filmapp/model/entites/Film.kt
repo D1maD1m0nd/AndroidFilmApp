@@ -40,5 +40,5 @@ data class Film(
     val budget: Int?,
     val revenue: Int?,
     @SerializedName("genres")
-    val genre : ArrayList<Genre>?
+    val genre: ArrayList<Genre>?
 ) : Parcelable

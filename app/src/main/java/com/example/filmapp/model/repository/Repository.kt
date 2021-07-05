@@ -8,7 +8,7 @@ interface Repository {
     fun getFilmFromServer(id: String): Film?
     fun getFilmCollectionFromServer(): ArrayList<Film>
     fun getPopularityFilmsFromServer(callback: Callback<FilmsList>)
-    fun getFilmFromId(id : Int, callback: Callback<Film>)
+    fun getFilmFromId(id: Int, callback: Callback<Film>)
     fun getFilmCollectionFromLocalStorage(): ArrayList<Film>
     fun getFilmFromLocalStorage(): Film?
 }

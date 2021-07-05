@@ -10,7 +10,8 @@ import com.example.filmapp.databinding.HomeFragmentItemBinding
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 
-class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
+class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+    RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
     private var items = ArrayList<Item>(50)
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -19,6 +20,7 @@ class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
     override fun getItemViewType(position: Int): Int {
         return position
     }
+
     inner class HomePageViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding: HomeFragmentItemBinding = HomeFragmentItemBinding.bind(item)
         fun bind(item: Item) = with(binding) {

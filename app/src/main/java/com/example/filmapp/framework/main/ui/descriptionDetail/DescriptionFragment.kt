@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DescriptionFragment : Fragment() {
     private lateinit var binding: FragmentDescriptionBinding
     private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
-    private val viewModel : DescriptionViewModel by viewModel()
+    private val viewModel: DescriptionViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +50,7 @@ class DescriptionFragment : Fragment() {
                     .get()
                     .load("$imageStorageUrl${it.poster}")
                     .fit()
-                    .into(postersTitle);
+                    .into(postersTitle)
             }
 
             arguments?.getInt(BUNDLE_EXTRA_INT)?.let {
@@ -80,7 +80,7 @@ class DescriptionFragment : Fragment() {
                             .get()
                             .load("$imageStorageUrl${it.poster}")
                             .fit()
-                            .into(postersTitle);
+                            .into(postersTitle)
                     }
                 }
             }
@@ -97,6 +97,7 @@ class DescriptionFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "FilmData"
         const val BUNDLE_EXTRA_INT = "FilmId"
+
         @JvmStatic
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()
