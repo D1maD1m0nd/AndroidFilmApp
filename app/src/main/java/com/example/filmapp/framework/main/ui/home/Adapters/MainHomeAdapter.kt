@@ -1,17 +1,25 @@
-package com.example.filmapp.ui.main.home.Adapters
+package com.example.filmapp.framework.main.ui.home.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.filmapp.R
 import com.example.filmapp.databinding.HomeFragmentItemBinding
+import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 
-class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
+class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+    RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
     private var items = ArrayList<Item>(50)
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 
     inner class HomePageViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding: HomeFragmentItemBinding = HomeFragmentItemBinding.bind(item)
@@ -24,9 +32,8 @@ class MainHomeAdapter : RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            val adapterChild = SubFilmsAdapter()
+            val adapterChild = SubFilmsAdapter(onItemViewClickListener)
             subRcView.adapter = adapterChild
-            //holder.rcView.setRecycledViewPool(viewPool)
             adapterChild.addFilms(item.films)
         }
     }

@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.home.Adapters
+package com.example.filmapp.framework.main.ui.home.Adapters
 
 import com.example.filmapp.model.entites.Film
 

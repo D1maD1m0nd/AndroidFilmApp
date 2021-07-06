@@ -1,4 +1,4 @@
-package com.example.filmapp.ui.main.home
+package com.example.filmapp.framework.main.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,28 +7,39 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentHomeBinding
+import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
+import com.example.filmapp.framework.main.ui.home.Adapters.Item
+import com.example.filmapp.framework.main.ui.home.Adapters.MainHomeAdapter
+import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
-import com.example.filmapp.ui.main.home.Adapters.Item
-import com.example.filmapp.ui.main.home.Adapters.MainHomeAdapter
-import java.lang.Exception
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
-
-    private val viewModel: HomeFragmentViewModel by lazy {
-        ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+    private val onListItemClickListener = object : FilmFragment.OnItemViewClickListener {
+        override fun onItemViewClick(film: Film) {
+            activity?.supportFragmentManager?.let {
+                val bundle = Bundle()
+                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 550)
+                it.beginTransaction()
+                    .add(R.id.container, DescriptionFragment.newInstance(bundle))
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
+            }
+        }
     }
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeFragmentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
@@ -40,8 +51,8 @@ class HomeFragment : Fragment() {
             renderData(it)
         }
 
-        viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getFilmLocalSource()
+        viewModel.liveDataToObserve.observe(viewLifecycleOwner, observer)
+        viewModel.getPopularFilms()
     }
 
     private fun renderData(appState: AppState) {
@@ -66,7 +77,7 @@ class HomeFragment : Fragment() {
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
         val items = ArrayList<Item>().apply { add(Item(films, "Популярные")) }
         rcView.layoutManager = LinearLayoutManager(context)
-        rcView.adapter = MainHomeAdapter().apply { addItems(items) }
+        rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
     }
 
     companion object {

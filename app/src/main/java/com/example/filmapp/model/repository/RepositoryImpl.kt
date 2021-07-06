@@ -1,92 +1,42 @@
 package com.example.filmapp.model.repository
 
-import com.example.filmapp.R
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.FilmLoader
-import com.example.filmapp.model.rest.FilmLoader.loadFilmList
-import java.lang.Exception
+import com.example.filmapp.model.rest.FilmRepository
+import retrofit2.Callback
 
 
 class RepositoryImpl : Repository {
-    private val imageId = listOf(
-        R.drawable.posters,
-        R.drawable.kinkongposters,
-        R.drawable.skaterposters,
-        R.drawable.starwarsposters,
-        R.drawable.starwarsposters
-    )
+    private val MAX_CAPACITY = 50
 
     private fun init(): ArrayList<Film> {
-        val films = ArrayList<Film>(50)
+        val films = ArrayList<Film>(MAX_CAPACITY)
         for (i in 1..10) {
-            val film = getFilmFromServer((550 + i).toString())
-            if (film != null) {
+            getFilmFromServer((550 + i).toString())?.let {
                 films.add(
-                    film
+                    it
                 )
             }
-
         }
 
         return films
     }
 
     override fun getFilmFromServer(id: String): Film? {
-        val dto = FilmLoader.loadFilmFromId(id)
-        if (dto != null) {
-            return Film(
-                dto.id,
-                dto.title,
-                dto.overview,
-                dto.status,
-                dto.vote_average,
-                dto.release_date,
-                dto.runtime,
-                dto.popularity,
-                dto.backdrop_path,
-                dto.budget,
-                dto.revenue,
-                dto.genres
-            )
-        } else {
-            return null
-        }
+        return FilmLoader.loadFilmFromId(id)
 
     }
 
     override fun getFilmCollectionFromServer() = init()
 
-    private fun getFilmPopularCollection(): ArrayList<Film> {
-        val filmsRes = ArrayList<Film>(50)
-            val films = loadFilmList()
-            for (dto in films?.results!!) {
-                filmsRes.add(
-                    Film(
-                        dto.id,
-                        dto.title,
-                        dto.overview,
-                        dto.status,
-                        dto.vote_average,
-                        dto.release_date,
-                        dto.runtime,
-                        dto.popularity,
-                        dto.backdrop_path,
-                        dto.budget,
-                        dto.revenue,
-                        dto.genres
-                    )
-                )
-            }
-
-
-        return filmsRes
+    override fun getPopularityFilmsFromServer(callback: retrofit2.Callback<FilmsList>) {
+        FilmRepository.getFilms(1, "en-US", callback)
     }
 
-    override fun getPopularityFilmsFromServer() = getFilmPopularCollection()
-
-
-
-
+    override fun getFilmFromId(id: Int, callback: Callback<Film>) {
+        FilmRepository.getFilmForId(id, "en-US", callback)
+    }
 
     override fun getFilmCollectionFromLocalStorage() = init()
 
