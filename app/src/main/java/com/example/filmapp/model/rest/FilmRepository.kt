@@ -20,10 +20,10 @@ object FilmRepository {
     }
 
     fun getFilms(page: Int, langCode: String, callback: Callback<FilmsList>) {
-        api.getFilmDtoPopular(page, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
+        api.getFilmDtoPopular(page, langCode).enqueue(callback)
     }
 
     fun getFilmForId(id: Int, langCode: String, callback: Callback<Film>) {
-        api.getFilmFromId(id, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
+        api.getFilmFromId(id, langCode).enqueue(callback)
     }
 }

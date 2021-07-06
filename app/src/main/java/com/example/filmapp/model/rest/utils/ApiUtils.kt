@@ -1,8 +1,12 @@
 package com.example.filmapp.model.rest.utils
 
 
+import com.example.filmapp.BuildConfig
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.util.concurrent.TimeUnit
+
 
 object ApiUtils {
     private const val baseUrlMainPart = "https://api.themoviedb.org/"
@@ -15,12 +19,16 @@ object ApiUtils {
         httpClient.connectTimeout(10, TimeUnit.SECONDS)
         httpClient.readTimeout(10, TimeUnit.SECONDS)
         httpClient.writeTimeout(10, TimeUnit.SECONDS)
-        httpClient.addInterceptor { chain ->
-            val original = chain.request()
-            val request = original.newBuilder()
-                .method(original.method(), original.body())
-                .build()
 
+        httpClient.addInterceptor { chain ->
+            val original: Request = chain.request()
+            val requestBuilder: Request.Builder = original.newBuilder()
+                .url(
+                    original.url().newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.FILM_API_KEY)
+                    .build())
+                .method(original.method(), original.body())
+            val request: Request = requestBuilder.build()
             chain.proceed(request)
         }
 
