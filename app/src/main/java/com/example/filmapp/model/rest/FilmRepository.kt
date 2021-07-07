@@ -19,11 +19,11 @@ object FilmRepository {
         adapter.create(FilmApi::class.java)
     }
 
-    fun getFilms(page: Int, langCode: String, callback: Callback<FilmsList>) {
-        api.getFilmDtoPopular(page, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
+    fun getFilms(page: Int, callback: Callback<FilmsList>) {
+        api.getFilmDtoPopular(page).enqueue(callback)
     }
 
-    fun getFilmForId(id: Int, langCode: String, callback: Callback<Film>) {
-        api.getFilmFromId(id, langCode, BuildConfig.FILM_API_KEY).enqueue(callback)
+    fun getFilmForId(id: Int,  callback: Callback<Film>) {
+        api.getFilmFromId(id).enqueue(callback)
     }
 }

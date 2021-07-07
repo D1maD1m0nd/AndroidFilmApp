@@ -24,6 +24,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
             Picasso
                 .get()
                 .load("$imageStorageUrl${film.poster}")
+                .fit()
                 .into(imagePosters)
             root.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(film)

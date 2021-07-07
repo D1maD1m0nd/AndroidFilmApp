@@ -11,14 +11,10 @@ interface FilmApi {
     @GET("popular")
     fun getFilmDtoPopular(
         @Query("page") page: Int,
-        @Query("language") langCode: String,
-        @Query("api_key") key: String
     ): Call<FilmsList>
 
     @GET("{id}")
     fun getFilmFromId(
         @Path("id") id: Int,
-        @Query("language") langCode: String,
-        @Query("api_key") key: String
     ): Call<Film>
 }
