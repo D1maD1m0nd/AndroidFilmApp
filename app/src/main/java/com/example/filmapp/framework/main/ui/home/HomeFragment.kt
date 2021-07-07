@@ -76,6 +76,7 @@ class HomeFragment : Fragment() {
 
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
         val items = ArrayList<Item>().apply { add(Item(films, "Популярные")) }
+        rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
     }

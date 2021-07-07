@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
+import com.example.filmapp.model.RoundedTransformation
 import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
 
@@ -21,6 +22,9 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
             Picasso
                 .get()
                 .load("$imageStorageUrl${film.poster}")
+                .fit()
+                .transform(RoundedTransformation(25,0))
+
                 .into(imagePosters)
             score.text = film.voteAverage.toString()
             root.setOnClickListener {

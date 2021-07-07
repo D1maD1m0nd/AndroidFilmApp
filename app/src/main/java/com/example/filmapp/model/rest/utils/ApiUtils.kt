@@ -5,6 +5,7 @@ import com.example.filmapp.BuildConfig
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -26,6 +27,7 @@ object ApiUtils {
                 .url(
                     original.url().newBuilder()
                     .addQueryParameter("api_key", BuildConfig.FILM_API_KEY)
+                        .addQueryParameter("language", Locale.getDefault().country)
                     .build())
                 .method(original.method(), original.body())
             val request: Request = requestBuilder.build()
