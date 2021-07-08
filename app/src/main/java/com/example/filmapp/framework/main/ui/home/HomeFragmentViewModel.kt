@@ -6,8 +6,6 @@ import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

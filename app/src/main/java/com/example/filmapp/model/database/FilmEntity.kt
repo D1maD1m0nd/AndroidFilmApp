@@ -19,4 +19,5 @@ data class FilmEntity(
     val budget: Int?,
     val revenue: Int?,
     val genre: String?,
-    val description: String)
+    val description: String
+)

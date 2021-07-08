@@ -9,20 +9,20 @@ import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
-
+private const val CAPACITY = 50
+private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500/"
 class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MainAdapter.FilmViewHolder>() {
-    private var films = ArrayList<Film>(40)
+    private var films = ArrayList<Film>(CAPACITY)
 
     inner class FilmViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFilmPreviewBinding.bind(item)
-        private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
         fun bind(film: Film) = with(binding) {
             postersTitle.text = film.title
             score.text = film.voteAverage.toString()
             Picasso
                 .get()
-                .load("$imageStorageUrl${film.poster}")
+                .load("$IMAGE_URL${film.poster}")
                 .fit()
                 .into(imagePosters)
             root.setOnClickListener {

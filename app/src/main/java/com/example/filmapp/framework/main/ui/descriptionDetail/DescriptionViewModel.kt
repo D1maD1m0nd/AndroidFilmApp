@@ -2,7 +2,6 @@ package com.example.filmapp.framework.main.ui.descriptionDetail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.filmapp.R
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.repository.Repository

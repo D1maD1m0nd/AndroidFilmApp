@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentDescriptionBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
@@ -63,19 +64,18 @@ class DescriptionFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.SuccessId -> {
-                //loadingLayout.visibility = View.GONE
                 appState.filmData.let {
                     binding.apply {
                         var genresFormats = ""
                         it.genre?.forEach({ genresFormats += it.name + "," })
                         title.text = it.title
-                        genre.text = "Жанры: ${genresFormats.trimEnd(',')}"
-                        duration.text = "Длительность: ${it.runtime} m"
-                        vote.text = "Оценка: ${it.voteAverage}"
-                        budget.text = "Бюжет: ${it.budget}$"
-                        revenue.text = "Сборы: ${it.revenue}$"
-                        dateRealise.text = "Дата выпуска: ${it.dateReleased}"
-                        description.text = "Описание: ${it.overview}"
+                        genre.text = "${getString(R.string.genre)} ${genresFormats.trimEnd(',')}"
+                        duration.text = "${getString(R.string.runtime)} ${it.runtime} m"
+                        vote.text = "${getString(R.string.vote_average)} ${it.voteAverage}"
+                        budget.text = "${getString(R.string.budget)} ${it.budget}$"
+                        revenue.text = "${getString(R.string.revenue)} ${it.revenue}$"
+                        dateRealise.text = "${getString(R.string.date_realise)} ${it.dateReleased}"
+                        description.text = "${getString(R.string.description)} ${it.overview}"
                         Picasso
                             .get()
                             .load("$imageStorageUrl${it.poster}")
@@ -85,11 +85,11 @@ class DescriptionFragment : Fragment() {
                 }
             }
             is AppState.Loading -> {
-                //loadingLayout.visibility = View.VISIBLE
+
             }
             is AppState.Error -> {
                 Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
-                //loadingLayout.visibility = View.GONE
+
             }
         }
     }

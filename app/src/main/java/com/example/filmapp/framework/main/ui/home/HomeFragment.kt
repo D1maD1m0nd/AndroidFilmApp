@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         override fun onItemViewClick(film: Film) {
             activity?.supportFragmentManager?.let {
                 val bundle = Bundle()
-                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 550)
+                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: DEFAULT_ID)
                 it.beginTransaction()
                     .add(R.id.container, DescriptionFragment.newInstance(bundle))
                     .addToBackStack(null)
@@ -58,30 +58,26 @@ class HomeFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                //loadingLayout.visibility = View.GONE
                 val filmsData = appState.filmsData
                 initRcView(filmsData)
             }
             is AppState.Loading -> {
-                //loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
-
-
-                //loadingLayout.visibility = View.GONE
             }
         }
     }
 
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
-        val items = ArrayList<Item>().apply { add(Item(films, "Популярные")) }
+        val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
     }
 
     companion object {
+        const val DEFAULT_ID = 550
         @JvmStatic
         fun newInstance() = HomeFragment()
 

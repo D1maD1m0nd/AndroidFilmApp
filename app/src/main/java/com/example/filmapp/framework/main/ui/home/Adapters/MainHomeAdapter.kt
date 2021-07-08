@@ -9,10 +9,11 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.HomeFragmentItemBinding
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
-
+private const val defaultCapacity = 50
 class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
-    private var items = ArrayList<Item>(50)
+
+    private var items = ArrayList<Item>(defaultCapacity)
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }

@@ -14,7 +14,8 @@ class App : Application() {
             modules(appModule)
         }
     }
+
     companion object {
-        lateinit var appInstance : App
+        lateinit var appInstance: App
     }
 }

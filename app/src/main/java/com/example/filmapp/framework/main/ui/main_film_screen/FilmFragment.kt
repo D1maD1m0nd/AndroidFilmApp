@@ -23,6 +23,7 @@ class FilmFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = FilmFragment()
+        private const val COUNT_COLUMN_RC = 2
     }
 
 
@@ -77,7 +78,7 @@ class FilmFragment : Fragment() {
 
     private fun initRcView(films: ArrayList<Film>) = with(binding) {
 
-        rcView.layoutManager = GridLayoutManager(context, 2)
+        rcView.layoutManager = GridLayoutManager(context, COUNT_COLUMN_RC)
         rcView.adapter = MainAdapter(onListItemClickListener).apply { addFilms(films) }
     }
 
