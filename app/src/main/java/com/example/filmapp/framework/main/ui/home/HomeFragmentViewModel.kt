@@ -20,7 +20,7 @@ class HomeFragmentViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
     val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
 ) :
-    ViewModel(), CoroutineScope by MainScope() {
+    ViewModel() {
     fun getPopularFilms() {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getPopularityFilmsFromServer(callBack)

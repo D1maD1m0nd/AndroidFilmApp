@@ -11,4 +11,6 @@ interface Repository {
     fun getFilmFromId(id: Int, callback: Callback<Film>)
     fun getFilmCollectionFromLocalStorage(): ArrayList<Film>
     fun getFilmFromLocalStorage(): Film?
+    fun saveEntity(film: Film)
+    fun getAllHistory() : List<Film>
 }

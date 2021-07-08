@@ -2,6 +2,7 @@ package com.example.filmapp.framework.main.ui.descriptionDetail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.filmapp.R
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.repository.Repository
@@ -22,6 +23,7 @@ class DescriptionViewModel(
     fun getFilmForId(id: Int) {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getFilmFromId(id, callBack)
+
     }
 
     private val callBack = object :
@@ -45,6 +47,7 @@ class DescriptionViewModel(
             return if (serverResponse == null) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
+                repositoryImpl.saveEntity(serverResponse)
                 AppState.SuccessId(serverResponse)
             }
         }

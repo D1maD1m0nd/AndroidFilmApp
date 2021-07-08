@@ -18,7 +18,6 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
         private val binding = ItemFilmPreviewBinding.bind(item)
         private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
         fun bind(film: Film) = with(binding) {
-            imagePosters.setImageResource(R.drawable.kinkongposters)
             postersTitle.text = film.title
             score.text = film.voteAverage.toString()
             Picasso

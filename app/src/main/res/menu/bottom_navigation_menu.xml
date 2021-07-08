@@ -9,7 +9,7 @@
         android:id="@+id/main"
         android:enabled="true"
         android:icon="@drawable/filmlist"
-        android:title="@string/films" />
+        android:title="@string/history" />
     <item
         android:id="@+id/likes"
         android:enabled="true"
