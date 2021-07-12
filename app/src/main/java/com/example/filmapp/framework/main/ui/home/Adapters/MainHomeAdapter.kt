@@ -11,8 +11,11 @@ import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 private const val defaultCapacity = 50
-class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?,
-                      private var onScrollToLastListener: HomeFragment.OnScrollToLastListener?) :
+
+class MainHomeAdapter(
+    private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?,
+    private var onScrollToLastListener: HomeFragment.OnScrollToLastListener?
+) :
     RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
 
     private var items = ArrayList<Item>(defaultCapacity)
@@ -58,8 +61,7 @@ class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
 
     fun addItems(items: ArrayList<Item>) {
-
         items.also { this.items = it }
-        notifyItemInserted(items[0].films.size - 1)
+        notifyItemInserted(1)
     }
 }

@@ -1,6 +1,5 @@
 package com.example.filmapp.framework.main.ui.main_film_screen
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,6 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.adapter.MainAdapter
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.COMEDY_KEY
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.DRAMA_KEY
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.FIGHTER_KEY
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.SCREAMER_KEY
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.TRILLER_KEY
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel

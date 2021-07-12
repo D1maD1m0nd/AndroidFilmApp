@@ -20,7 +20,7 @@ class FilmViewModel(private val repositoryImpl: Repository) : ViewModel(),
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         launch {
-            val job = async(Dispatchers.IO) { repositoryImpl.getAllHistory()}
+            val job = async(Dispatchers.IO) { repositoryImpl.getAllHistory() }
             liveDataToObserve.value = AppState.Success(job.await() as ArrayList<Film>)
         }
     }
