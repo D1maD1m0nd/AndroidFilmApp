@@ -18,12 +18,13 @@ private const val CORRUPTED_DATA = "Неполные данные"
 class HomeFragmentViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
     val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    var filtersGenre: ArrayList<Int> = ArrayList()
+    var filtersGenre: ArrayList<Int> = ArrayList(10),
+    private var page: Int = 0
 ) :
     ViewModel() {
     fun getPopularFilms() {
         liveDataToObserve.value = AppState.Loading
-        repositoryImpl.getPopularityFilmsFromServer(callBack)
+        repositoryImpl.getPopularityFilmsFromServer(++page,callBack)
     }
     private val films = ArrayList<Film>(500);
 

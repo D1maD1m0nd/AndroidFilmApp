@@ -13,15 +13,14 @@ import retrofit2.Callback
 class RepositoryImpl : Repository,
     CoroutineScope by MainScope() {
     private val MAX_CAPACITY = 50
-    private var currentPage = 0
     private val MAX_PAGE = 500
 
 
-    override fun getPopularityFilmsFromServer(callback: Callback<FilmsList>) {
-        if(MAX_PAGE == currentPage) {
+    override fun getPopularityFilmsFromServer(page : Int,callback: Callback<FilmsList>) {
+        if(MAX_PAGE == page) {
             return
         }
-        FilmRepository.getFilms(++currentPage, callback)
+        FilmRepository.getFilms(page, callback)
     }
 
     override fun getFilmFromId(id: Int, callback: Callback<Film>) {

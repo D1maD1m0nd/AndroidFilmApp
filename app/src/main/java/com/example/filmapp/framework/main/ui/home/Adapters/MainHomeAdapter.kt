@@ -58,8 +58,7 @@ class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
 
     fun addItems(items: ArrayList<Item>) {
-
         items.also { this.items = it }
-        notifyItemInserted(items[0].films.size - 1)
+        notifyItemInserted(1)
     }
 }

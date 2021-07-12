@@ -61,7 +61,6 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
     fun addFilms(films: ArrayList<Film>) {
         films.also { this.films = it }
-       //notifyDataSetChanged()
     }
 
 }
