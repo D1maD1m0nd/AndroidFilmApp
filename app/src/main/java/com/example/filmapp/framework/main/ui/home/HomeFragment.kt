@@ -1,5 +1,6 @@
 package com.example.filmapp.framework.main.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +15,29 @@ import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragme
 import com.example.filmapp.framework.main.ui.home.Adapters.Item
 import com.example.filmapp.framework.main.ui.home.Adapters.MainHomeAdapter
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
+import com.example.filmapp.framework.main.ui.settings.SettingsFragment
+import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.prefKeys
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
+    interface OnScrollToLastListener {
+        fun onUpdate()
+    }
+
+    private val onScrollToLastListener = object : OnScrollToLastListener {
+        override fun onUpdate() {
+            viewModel.getPopularFilms()
+        }
+    }
 
     private val onListItemClickListener = object : FilmFragment.OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
             activity?.supportFragmentManager?.let {
                 val bundle = Bundle()
-                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 550)
+                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: DEFAULT_ID)
                 it.beginTransaction()
                     .add(R.id.container, DescriptionFragment.newInstance(bundle))
                     .addToBackStack(null)
@@ -35,6 +47,7 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModel()
+    private val adapter = MainHomeAdapter(onListItemClickListener, onScrollToLastListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +60,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRcView()
         val observer = Observer<AppState> {
             renderData(it)
         }
-
+        viewModel.filtersGenre = getFilters()
         viewModel.liveDataToObserve.observe(viewLifecycleOwner, observer)
         viewModel.getPopularFilms()
     }
@@ -58,30 +72,47 @@ class HomeFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                //loadingLayout.visibility = View.GONE
                 val filmsData = appState.filmsData
-                initRcView(filmsData)
+                updateFilmsList(filmsData)
             }
             is AppState.Loading -> {
-                //loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
-
-
-                //loadingLayout.visibility = View.GONE
             }
         }
     }
-
-    private fun initRcView(films: ArrayList<Film>) = with(binding) {
-        val items = ArrayList<Item>().apply { add(Item(films, "Популярные")) }
+    private fun initRcView() = with(binding){
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(context)
-        rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
+        rcView.adapter = adapter
     }
 
+    private fun updateFilmsList(films: ArrayList<Film>) = with(binding) {
+        val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
+       adapter.addItems(items)
+    }
+    private fun getFilters() : ArrayList<Int>{
+        val ids = ArrayList<Int>()
+        activity?.getPreferences(Context.MODE_PRIVATE)?.let{
+            for (key in prefKeys) {
+                val isEnable = it.getBoolean(key, false)
+                if(isEnable) {
+                    genres[key]?.let { it1 -> ids.add(it1) }
+                }
+            }
+        }
+        return ids
+    }
     companion object {
+        private  val genres = mapOf(
+            SettingsFragment.DRAMA_KEY to 18,
+            SettingsFragment.COMEDY_KEY to 35,
+            SettingsFragment.TRILLER_KEY to 53,
+            SettingsFragment.SCREAMER_KEY to 27,
+            SettingsFragment.FIGHTER_KEY to 28
+        )
+        const val DEFAULT_ID = 550
         @JvmStatic
         fun newInstance() = HomeFragment()
 

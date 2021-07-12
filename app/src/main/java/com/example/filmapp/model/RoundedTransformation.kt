@@ -10,12 +10,10 @@ class RoundedTransformation(
 ) : Transformation {
     override fun transform(source: Bitmap): Bitmap {
         val paint = Paint()
-        paint.setAntiAlias(true)
-        paint.setShader(
-            BitmapShader(
-                source, Shader.TileMode.CLAMP,
-                Shader.TileMode.CLAMP
-            )
+        paint.isAntiAlias = true
+        paint.shader = BitmapShader(
+            source, Shader.TileMode.CLAMP,
+            Shader.TileMode.CLAMP
         )
         val output = Bitmap.createBitmap(
             source.width,

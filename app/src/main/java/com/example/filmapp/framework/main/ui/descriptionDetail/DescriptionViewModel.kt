@@ -22,6 +22,7 @@ class DescriptionViewModel(
     fun getFilmForId(id: Int) {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getFilmFromId(id, callBack)
+
     }
 
     private val callBack = object :
@@ -45,6 +46,7 @@ class DescriptionViewModel(
             return if (serverResponse == null) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
+                repositoryImpl.saveEntity(serverResponse)
                 AppState.SuccessId(serverResponse)
             }
         }

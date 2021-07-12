@@ -6,25 +6,33 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
+import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.RoundedTransformation
 import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
 
-class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+private const val CAPACITY = 50
+private const val RADIUS = 25
+private const val DEFAULT_MARGIN = 0
+private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500/"
+
+class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?,
+                      private var onScrollToLastListener: HomeFragment.OnScrollToLastListener?) :
     RecyclerView.Adapter<SubFilmsAdapter.FilmsViewHolder>() {
+
+
+    private var films = ArrayList<Film>(CAPACITY)
     inner class FilmsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        private val imageStorageUrl = "https://image.tmdb.org/t/p/w500/"
         private val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film: Film) = with(binding) {
             postersTitle.text = film.title
             imagePosters.setImageResource(R.drawable.kinkongposters)
             Picasso
                 .get()
-                .load("$imageStorageUrl${film.poster}")
+                .load("$IMAGE_URL${film.poster}")
                 .fit()
-                .transform(RoundedTransformation(25,0))
-
+                .transform(RoundedTransformation(RADIUS, DEFAULT_MARGIN))
                 .into(imagePosters)
             score.text = film.voteAverage.toString()
             root.setOnClickListener {
@@ -32,8 +40,6 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
             }
         }
     }
-
-    private var films = ArrayList<Film>(50)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_film_preview,
@@ -44,6 +50,10 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
     }
 
     override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
+        println(position)
+        if(position == films.size / 2) {
+            onScrollToLastListener?.onUpdate()
+        }
         holder.bind(films[position])
     }
 
@@ -51,7 +61,7 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
     fun addFilms(films: ArrayList<Film>) {
         films.also { this.films = it }
-        notifyDataSetChanged()
+       //notifyDataSetChanged()
     }
 
 }

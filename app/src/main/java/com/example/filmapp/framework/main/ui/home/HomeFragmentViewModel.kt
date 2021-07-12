@@ -3,11 +3,10 @@ package com.example.filmapp.framework.main.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmapp.model.AppState
+import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.repository.Repository
 import com.example.filmapp.model.repository.RepositoryImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,13 +17,15 @@ private const val CORRUPTED_DATA = "Неполные данные"
 
 class HomeFragmentViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
-    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
+    var filtersGenre: ArrayList<Int> = ArrayList()
 ) :
-    ViewModel(), CoroutineScope by MainScope() {
+    ViewModel() {
     fun getPopularFilms() {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getPopularityFilmsFromServer(callBack)
     }
+    private val films = ArrayList<Film>(500);
 
     private val callBack = object :
         Callback<FilmsList> {
@@ -44,11 +45,21 @@ class HomeFragmentViewModel(
         }
 
         private fun checkResponse(serverResponse: FilmsList): AppState {
-            val fact = serverResponse.results
+            val fact = serverResponse.results.filter {
+                var isFilter = false
+                for (id in filtersGenre) {
+                    if(it.genreIds.contains(id)){
+                        isFilter = true
+                        break
+                    }
+                }
+                isFilter
+            }
             return if (fact.isEmpty()) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
-                AppState.Success(fact)
+                films.addAll(fact)
+                AppState.Success(films)
             }
         }
     }

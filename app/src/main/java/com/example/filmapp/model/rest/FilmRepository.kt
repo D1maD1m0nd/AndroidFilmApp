@@ -1,6 +1,5 @@
 package com.example.filmapp.model.rest
 
-import com.example.filmapp.BuildConfig
 import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.rest.utils.ApiUtils
@@ -23,7 +22,7 @@ object FilmRepository {
         api.getFilmDtoPopular(page).enqueue(callback)
     }
 
-    fun getFilmForId(id: Int,  callback: Callback<Film>) {
+    fun getFilmForId(id: Int, callback: Callback<Film>) {
         api.getFilmFromId(id).enqueue(callback)
     }
 }

@@ -39,13 +39,12 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, LikeFragment.newInstance("1", "2"))
                         .commitAllowingStateLoss()
-                    // Respond to navigation item 2 reselection
                     true
                 }
                 R.id.settings -> {
                     //TODO удалить парметры в фабрике фрагмента
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, SettingsFragment.newInstance("2", "3"))
+                        .replace(R.id.container, SettingsFragment.newInstance())
                         .commitAllowingStateLoss()
                     true
                 }

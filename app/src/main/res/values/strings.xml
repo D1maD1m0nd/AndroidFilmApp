@@ -3,16 +3,26 @@
     <string name="posters">Posters</string>
     <string name="films">Фильмы</string>
     <string name="like">Понравилось</string>
-    <string name="settings">настройки</string>
+    <string name="settings">фильтры</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title">Заголовок</string>
-    <string name="genre">Жанры</string>
+    <string name="genre">Жанры:</string>
     <string name="duration">Длительность</string>
-    <string name="vote_average">Оценка</string>
-    <string name="budget">Бюджет</string>
-    <string name="revenue">Сборы</string>
+    <string name="vote_average">Оценка:</string>
+    <string name="budget">Бюджет:</string>
+    <string name="revenue">Сборы:</string>
     <string name="date_realise">Дата релиза</string>
     <string name="description">Описание</string>
     <string name="list_films">Список фильмов</string>
+    <string name="history">история</string>
+    <string name="runtime">Длительность:</string>
+    <string name="pupularity">Популярные</string>
+    <string name="screamer">Ужасы</string>
+    <string name="Комедии">CheckBox</string>
+    <string name="Comedy">Комедии</string>
+    <string name="fighters">Боевики</string>
+    <string name="Drama">Драма</string>
+    <string name="Triller">Триллер</string>
+    <string name="accept">применить</string>
 </resources>
