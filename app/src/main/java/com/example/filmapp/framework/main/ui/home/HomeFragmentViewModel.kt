@@ -25,6 +25,7 @@ class HomeFragmentViewModel(
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getPopularityFilmsFromServer(callBack)
     }
+    private val films = ArrayList<Film>(500);
 
     private val callBack = object :
         Callback<FilmsList> {
@@ -57,7 +58,8 @@ class HomeFragmentViewModel(
             return if (fact.isEmpty()) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
-                AppState.Success(fact as ArrayList<Film>)
+                films.addAll(fact)
+                AppState.Success(films)
             }
         }
     }

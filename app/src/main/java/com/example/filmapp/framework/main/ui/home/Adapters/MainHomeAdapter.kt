@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.HomeFragmentItemBinding
+import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 
 private const val defaultCapacity = 50
-class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?,
+                      private var onScrollToLastListener: HomeFragment.OnScrollToLastListener?) :
     RecyclerView.Adapter<MainHomeAdapter.HomePageViewHolder>() {
 
     private var items = ArrayList<Item>(defaultCapacity)
@@ -33,9 +35,9 @@ class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            val adapterChild = SubFilmsAdapter(onItemViewClickListener)
-            subRcView.adapter = adapterChild
-            adapterChild.addFilms(item.films)
+            val adapter = SubFilmsAdapter(onItemViewClickListener, onScrollToLastListener)
+            subRcView.adapter = adapter
+            adapter.addFilms(item.films)
         }
     }
 
@@ -56,7 +58,8 @@ class MainHomeAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
 
     fun addItems(items: ArrayList<Item>) {
+
         items.also { this.items = it }
-        notifyDataSetChanged()
+        notifyItemInserted(items[0].films.size - 1)
     }
 }

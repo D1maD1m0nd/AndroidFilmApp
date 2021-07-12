@@ -23,6 +23,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
+    interface OnScrollToLastListener {
+        fun onUpdate()
+    }
+
+    private val onScrollToLastListener = object : OnScrollToLastListener {
+        override fun onUpdate() {
+            viewModel.getPopularFilms()
+        }
+    }
 
     private val onListItemClickListener = object : FilmFragment.OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
@@ -38,6 +47,7 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeFragmentViewModel by viewModel()
+    private val adapter = MainHomeAdapter(onListItemClickListener, onScrollToLastListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +60,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRcView()
         val observer = Observer<AppState> {
             renderData(it)
         }
@@ -62,7 +73,7 @@ class HomeFragment : Fragment() {
         when (appState) {
             is AppState.Success -> {
                 val filmsData = appState.filmsData
-                initRcView(filmsData)
+                updateFilmsList(filmsData)
             }
             is AppState.Loading -> {
             }
@@ -71,12 +82,15 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-    private fun initRcView(films: ArrayList<Film>) = with(binding) {
-        val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
+    private fun initRcView() = with(binding){
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(context)
-        rcView.adapter = MainHomeAdapter(onListItemClickListener).apply { addItems(items) }
+        rcView.adapter = adapter
+    }
+
+    private fun updateFilmsList(films: ArrayList<Film>) = with(binding) {
+        val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
+       adapter.addItems(items)
     }
     private fun getFilters() : ArrayList<Int>{
         val ids = ArrayList<Int>()

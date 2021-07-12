@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
+import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.model.RoundedTransformation
 import com.example.filmapp.model.entites.Film
@@ -16,7 +17,8 @@ private const val RADIUS = 25
 private const val DEFAULT_MARGIN = 0
 private const val IMAGE_URL = "https://image.tmdb.org/t/p/w500/"
 
-class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?) :
+class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewClickListener?,
+                      private var onScrollToLastListener: HomeFragment.OnScrollToLastListener?) :
     RecyclerView.Adapter<SubFilmsAdapter.FilmsViewHolder>() {
 
 
@@ -31,7 +33,6 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
                 .load("$IMAGE_URL${film.poster}")
                 .fit()
                 .transform(RoundedTransformation(RADIUS, DEFAULT_MARGIN))
-
                 .into(imagePosters)
             score.text = film.voteAverage.toString()
             root.setOnClickListener {
@@ -49,6 +50,10 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
     }
 
     override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
+        println(position)
+        if(position == films.size / 2) {
+            onScrollToLastListener?.onUpdate()
+        }
         holder.bind(films[position])
     }
 
@@ -56,7 +61,7 @@ class SubFilmsAdapter(private var onItemViewClickListener: FilmFragment.OnItemVi
 
     fun addFilms(films: ArrayList<Film>) {
         films.also { this.films = it }
-        notifyDataSetChanged()
+       //notifyDataSetChanged()
     }
 
 }
