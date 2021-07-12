@@ -24,9 +24,10 @@ class HomeFragmentViewModel(
     ViewModel() {
     fun getPopularFilms() {
         liveDataToObserve.value = AppState.Loading
-        repositoryImpl.getPopularityFilmsFromServer(++page,callBack)
+        repositoryImpl.getPopularityFilmsFromServer(++page, callBack)
     }
-    private val films = ArrayList<Film>(500);
+
+    private val films = ArrayList<Film>(500)
 
     private val callBack = object :
         Callback<FilmsList> {
@@ -49,7 +50,7 @@ class HomeFragmentViewModel(
             val fact = serverResponse.results.filter {
                 var isFilter = false
                 for (id in filtersGenre) {
-                    if(it.genreIds.contains(id)){
+                    if (it.genreIds.contains(id)) {
                         isFilter = true
                         break
                     }

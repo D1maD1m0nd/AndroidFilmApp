@@ -82,7 +82,8 @@ class HomeFragment : Fragment() {
             }
         }
     }
-    private fun initRcView() = with(binding){
+
+    private fun initRcView() = with(binding) {
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
@@ -90,22 +91,24 @@ class HomeFragment : Fragment() {
 
     private fun updateFilmsList(films: ArrayList<Film>) = with(binding) {
         val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
-       adapter.addItems(items)
+        adapter.addItems(items)
     }
-    private fun getFilters() : ArrayList<Int>{
+
+    private fun getFilters(): ArrayList<Int> {
         val ids = ArrayList<Int>()
-        activity?.getPreferences(Context.MODE_PRIVATE)?.let{
+        activity?.getPreferences(Context.MODE_PRIVATE)?.let {
             for (key in prefKeys) {
                 val isEnable = it.getBoolean(key, false)
-                if(isEnable) {
+                if (isEnable) {
                     genres[key]?.let { it1 -> ids.add(it1) }
                 }
             }
         }
         return ids
     }
+
     companion object {
-        private  val genres = mapOf(
+        private val genres = mapOf(
             SettingsFragment.DRAMA_KEY to 18,
             SettingsFragment.COMEDY_KEY to 35,
             SettingsFragment.TRILLER_KEY to 53,
@@ -113,6 +116,7 @@ class HomeFragment : Fragment() {
             SettingsFragment.FIGHTER_KEY to 28
         )
         const val DEFAULT_ID = 550
+
         @JvmStatic
         fun newInstance() = HomeFragment()
 

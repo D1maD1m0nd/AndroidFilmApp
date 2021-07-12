@@ -42,5 +42,5 @@ data class Film(
     @SerializedName("genres")
     val genre: ArrayList<Genre>?,
     @SerializedName("genre_ids")
-    val genreIds : ArrayList<Int> = ArrayList()
+    val genreIds: ArrayList<Int> = ArrayList()
 ) : Parcelable

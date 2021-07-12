@@ -16,8 +16,8 @@ class RepositoryImpl : Repository,
     private val MAX_PAGE = 500
 
 
-    override fun getPopularityFilmsFromServer(page : Int,callback: Callback<FilmsList>) {
-        if(MAX_PAGE == page) {
+    override fun getPopularityFilmsFromServer(page: Int, callback: Callback<FilmsList>) {
+        if (MAX_PAGE == page) {
             return
         }
         FilmRepository.getFilms(page, callback)
