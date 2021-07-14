@@ -47,16 +47,20 @@ class HomeFragmentViewModel(
         }
 
         private fun checkResponse(serverResponse: FilmsList): AppState {
-            val fact = serverResponse.results.filter {
-                var isFilter = false
-                for (id in filtersGenre) {
-                    if (it.genreIds.contains(id)) {
-                        isFilter = true
-                        break
+            var fact = serverResponse.results
+            if(filtersGenre.isNotEmpty()) {
+                fact = fact.filter {
+                    var isFilter = false
+                    for (id in filtersGenre) {
+                        if (it.genreIds.contains(id)) {
+                            isFilter = true
+                            break
+                        }
                     }
-                }
-                isFilter
+                    isFilter
+                } as ArrayList<Film>
             }
+
             return if (fact.isEmpty()) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
