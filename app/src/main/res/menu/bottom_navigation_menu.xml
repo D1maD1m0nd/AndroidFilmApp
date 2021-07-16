@@ -20,4 +20,9 @@
         android:enabled="true"
         android:icon="@drawable/filter"
         android:title="@string/settings" />
+    <item
+        android:id="@+id/phones"
+        android:enabled="true"
+        android:icon="@drawable/telephone"
+        android:title="@string/settings" />
 </menu>

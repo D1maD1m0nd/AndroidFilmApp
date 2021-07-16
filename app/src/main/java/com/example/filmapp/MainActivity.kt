@@ -2,10 +2,12 @@ package com.example.filmapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.filmapp.databinding.MainActivityBinding
 import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.likes.LikeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
+import com.example.filmapp.framework.main.ui.phones_fragment.PhonesListFragment
 import com.example.filmapp.framework.main.ui.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -23,29 +25,25 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance())
-                        .commitAllowingStateLoss()
+                    openFragment(HomeFragment.newInstance())
                     true
                 }
                 R.id.main -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, FilmFragment.newInstance())
-                        .commitAllowingStateLoss()
+                    openFragment(FilmFragment.newInstance())
                     true
                 }
                 R.id.likes -> {
                     //TODO удалить парметры в фабрике фрагмента
+                    openFragment(LikeFragment.newInstance("1", "2"))
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, LikeFragment.newInstance("1", "2"))
-                        .commitAllowingStateLoss()
                     true
                 }
                 R.id.settings -> {
-                    //TODO удалить парметры в фабрике фрагмента
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, SettingsFragment.newInstance())
-                        .commitAllowingStateLoss()
+                    openFragment(SettingsFragment.newInstance())
+                    true
+                }
+                R.id.phones -> {
+                    openFragment(PhonesListFragment.newInstance())
                     true
                 }
                 else -> false
@@ -53,5 +51,12 @@ class MainActivity : AppCompatActivity() {
         }
         //для открытия страницы по дефолту
         navView.selectedItemId = R.id.main
+    }
+
+    private fun openFragment(fragment : Fragment) {
+        //TODO удалить парметры в фабрике фрагмента
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commitAllowingStateLoss()
     }
 }
