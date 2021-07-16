@@ -32,16 +32,17 @@ import java.io.IOException
 class MapFragment : Fragment() {
     private lateinit var map: GoogleMap
     private val markers: ArrayList<Marker> = ArrayList()
-    private lateinit var binding:  FragmentMapBinding
+    private lateinit var binding: FragmentMapBinding
     private val permissionResult = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { result ->
-        if(result) {
+        if (result) {
 
         } else {
-            Toast.makeText(context, "111111", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.not_permission), Toast.LENGTH_SHORT).show()
         }
     }
+
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
@@ -57,14 +58,14 @@ class MapFragment : Fragment() {
             map.isMyLocationEnabled = true
         }
 
-        val initialPlace = LatLng(44.952117, 34.102417)
+        val initialPlace = LatLng(DEF_LAT, DEF_LAG)
         val marker = googleMap.addMarker(
             MarkerOptions().position(initialPlace).title(getString(R.string.start_marker))
         )
         marker?.let { markers.add(it) }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(initialPlace))
         googleMap.setOnMapLongClickListener { latLng ->
-            setMarker(latLng, "From long click")
+            setMarker(latLng, getString(R.string.long_click))
             getAddressAsync(latLng)
             drawLine()
         }
@@ -90,10 +91,10 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        registerForContextMenu(binding.mode);
-        binding.mode.setOnClickListener{
+        registerForContextMenu(binding.mode)
+        binding.mode.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                it.showContextMenu(10.0F, 10.0F)
+                it.showContextMenu()
             }
         }
         mapFragment?.getMapAsync(callback)
@@ -116,6 +117,7 @@ class MapFragment : Fragment() {
     private fun requestPermission() {
         permissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
+
     override fun onCreateContextMenu(
         menu: ContextMenu,
         v: View,
@@ -125,6 +127,7 @@ class MapFragment : Fragment() {
         val inflater = requireActivity().menuInflater
         inflater.inflate(R.menu.map_menu, menu)
     }
+
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_map_mode_normal -> {
@@ -153,7 +156,7 @@ class MapFragment : Fragment() {
             val searchText = searchAddress.text.toString()
             Thread {
                 try {
-                    val addresses = geoCoder.getFromLocationName(searchText, 1)
+                    val addresses = geoCoder.getFromLocationName(searchText, MAX_RESULT)
                     if (addresses.isNotEmpty()) {
                         goToAddress(addresses, it, searchText)
                     }
@@ -170,8 +173,10 @@ class MapFragment : Fragment() {
             Thread {
                 try {
                     val addresses =
-                        geoCoder.getFromLocation(location.latitude, location.longitude, 1)
-                    textAddress.post { textAddress.text = addresses[0].getAddressLine(0) }
+                        geoCoder.getFromLocation(location.latitude, location.longitude, MAX_RESULT)
+                    textAddress.post {
+                        textAddress.text = addresses.first().getAddressLine(DEF_INDEX)
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -188,19 +193,19 @@ class MapFragment : Fragment() {
                 PolylineOptions()
                     .add(previous, current)
                     .color(Color.RED)
-                    .width(5f)
+                    .width(WIDTH)
             )
         }
     }
 
     private fun goToAddress(addresses: MutableList<Address>, view: View, searchText: String) {
-        val location = LatLng(addresses[0].latitude, addresses[0].longitude)
+        val location = LatLng(addresses.first().latitude, addresses.first().longitude)
         view.post {
             setMarker(location, searchText)
             map.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     location,
-                    15f
+                    ZOOM
                 )
             )
         }
@@ -216,6 +221,12 @@ class MapFragment : Fragment() {
     }
 
     companion object {
+        const val DEF_INDEX = 0
+        const val MAX_RESULT = 1
+        const val DEF_LAG = 34.102417
+        const val DEF_LAT = 44.952117
+        const val WIDTH = 5F
+        const val ZOOM = 15F
         fun newInstance() = MapFragment()
     }
 }

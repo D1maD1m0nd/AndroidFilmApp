@@ -35,4 +35,8 @@
     <string name="button_search_map">поиск</string>
     <string name="default_address">Red Square, 1, Moscow</string>
     <string name="mode">Режим</string>
+    <string name="not_permission">Нет разршения место пложения</string>
+    <string name="long_click">From long click</string>
+    <string name="Ok">Успех</string>
+    <string name="not_ok">Не успех</string>
 </resources>

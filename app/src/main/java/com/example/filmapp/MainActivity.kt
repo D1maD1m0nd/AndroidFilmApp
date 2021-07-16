@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         navView.selectedItemId = R.id.main
     }
 
-    private fun openFragment(fragment : Fragment) {
+    private fun openFragment(fragment: Fragment) {
         //TODO удалить парметры в фабрике фрагмента
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)

@@ -10,9 +10,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val SERVER_ERROR = "Ошибка сервера"
-private const val REQUEST_ERROR = "Ошибка запроса на сервер"
-private const val CORRUPTED_DATA = "Неполные данные"
 
 class DescriptionViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
@@ -50,5 +47,11 @@ class DescriptionViewModel(
                 AppState.SuccessId(serverResponse)
             }
         }
+    }
+
+    companion object {
+        private const val SERVER_ERROR = "Ошибка сервера"
+        private const val REQUEST_ERROR = "Ошибка запроса на сервер"
+        private const val CORRUPTED_DATA = "Неполные данные"
     }
 }
