@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.filmapp.databinding.MainActivityBinding
 import com.example.filmapp.framework.main.ui.home.HomeFragment
-import com.example.filmapp.framework.main.ui.likes.LikeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
+import com.example.filmapp.framework.main.ui.map_fragment.MapFragment
 import com.example.filmapp.framework.main.ui.phones_fragment.PhonesListFragment
 import com.example.filmapp.framework.main.ui.settings.SettingsFragment
 
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
                     openFragment(FilmFragment.newInstance())
                     true
                 }
-                R.id.likes -> {
+                R.id.maps -> {
                     //TODO удалить парметры в фабрике фрагмента
-                    openFragment(LikeFragment.newInstance("1", "2"))
+                    openFragment(MapFragment.newInstance())
                     supportFragmentManager.beginTransaction()
                     true
                 }

@@ -25,4 +25,13 @@
     <string name="Drama">Драма</string>
     <string name="Triller">Триллер</string>
     <string name="accept">применить</string>
+    <string name="map">карта</string>
+    <string name="start_marker">тут</string>
+    <string name="map_mode">режим</string>
+    <string name="normal">нормальный</string>
+    <string name="satellites">спутник</string>
+    <string name="terrain">схема</string>
+    <string name="traffic">трафик</string>
+    <string name="button_search_map">поиск</string>
+    <string name="default_address">Red Square, 1, Moscow</string>
 </resources>
