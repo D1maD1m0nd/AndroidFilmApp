@@ -34,4 +34,5 @@
     <string name="traffic">трафик</string>
     <string name="button_search_map">поиск</string>
     <string name="default_address">Red Square, 1, Moscow</string>
+    <string name="mode">Режим</string>
 </resources>

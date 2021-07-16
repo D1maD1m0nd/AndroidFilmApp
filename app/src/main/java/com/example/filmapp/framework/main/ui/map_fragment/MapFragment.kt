@@ -6,10 +6,13 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.view.ContextMenu.ContextMenuInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -83,39 +86,46 @@ class MapFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        registerForContextMenu(binding.mode);
+        binding.mode.setOnClickListener{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                it.showContextMenu(10.0F, 10.0F)
+            }
+        }
         mapFragment?.getMapAsync(callback)
         initSearchByAddress()
     }
 
-
-
-        private fun checkPermission() {
-            activity?.let {
-                when (PackageManager.PERMISSION_GRANTED) {
-                    ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    }
-                    else -> {
-                        requestPermission()
-                    }
+    private fun checkPermission() {
+        activity?.let {
+            when (PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                }
+                else -> {
+                    requestPermission()
                 }
             }
-
         }
+
+    }
 
     private fun requestPermission() {
         permissionResult.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        activity?.menuInflater?.inflate(R.menu.map_menu, menu)
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater = requireActivity().menuInflater
+        inflater.inflate(R.menu.map_menu, menu)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_map_mode_normal -> {
                 map.mapType = GoogleMap.MAP_TYPE_NORMAL
