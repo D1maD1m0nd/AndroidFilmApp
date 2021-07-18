@@ -66,7 +66,7 @@ class DescriptionFragment : Fragment() {
             when (appState) {
                 is AppState.SuccessId -> {
                     appState.filmData.let {
-
+                        loadingLayout.visibility = View.GONE
                         var genresFormats = ""
                         it.genre?.forEach({ genresFormats += it.name + "," })
                         title.text = it.title
@@ -77,7 +77,6 @@ class DescriptionFragment : Fragment() {
                         revenue.text = "${getString(R.string.revenue)} ${it.revenue}$"
                         dateRealise.text = "${getString(R.string.date_realise)} ${it.dateReleased}"
                         description.text = "\t${it.overview}"
-                        loadingLayout.visibility = View.GONE
                         Picasso
                             .get()
                             .load("$imageStorageUrl${it.poster}")

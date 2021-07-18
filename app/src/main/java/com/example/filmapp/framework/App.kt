@@ -1,4 +1,4 @@
-package com.example.filmapp.framework.main.ui
+package com.example.filmapp.framework
 
 import android.app.Application
 import com.example.filmapp.di.appModule
