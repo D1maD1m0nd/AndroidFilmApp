@@ -78,28 +78,7 @@ class PhonesListFragment : Fragment() {
     }
 
     private fun getContacts() {
-        var numbers = ArrayList<String>()
         context?.let {
-            val cursorWithPhoneNumberContacts: Cursor? = it.contentResolver.query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                ContactsContract.CommonDataKinds.Phone._ID + " = " + id,
-                null,
-                null
-            )
-            cursorWithPhoneNumberContacts?.let { cursor ->
-                for (i in 0..cursor.count) {
-                    if (cursor.moveToPosition(i)) {
-                        numbers.add(
-                            cursorWithPhoneNumberContacts.getString(
-                                cursorWithPhoneNumberContacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                            )
-                        )
-                    }
-                }
-            }
-
-            cursorWithPhoneNumberContacts?.close()
             val cursorWithContactsContract: Cursor? = it.contentResolver.query(
                 ContactsContract.Contacts.CONTENT_URI,
                 null,

@@ -26,10 +26,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-class MapFragment : Fragment() {
+class MapFragment : Fragment(),
+    CoroutineScope by MainScope() {
     private lateinit var map: GoogleMap
     private val markers: ArrayList<Marker> = ArrayList()
     private lateinit var binding: FragmentMapBinding
@@ -154,7 +158,7 @@ class MapFragment : Fragment() {
         buttonSearch.setOnClickListener {
             val geoCoder = Geocoder(it.context)
             val searchText = searchAddress.text.toString()
-            Thread {
+            launch {
                 try {
                     val addresses = geoCoder.getFromLocationName(searchText, MAX_RESULT)
                     if (addresses.isNotEmpty()) {
@@ -163,14 +167,14 @@ class MapFragment : Fragment() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-            }.start()
+            }
         }
     }
 
     private fun getAddressAsync(location: LatLng) = with(binding) {
         context?.let {
             val geoCoder = Geocoder(it)
-            Thread {
+            launch {
                 try {
                     val addresses =
                         geoCoder.getFromLocation(location.latitude, location.longitude, MAX_RESULT)
@@ -180,7 +184,7 @@ class MapFragment : Fragment() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-            }.start()
+            }
         }
     }
 

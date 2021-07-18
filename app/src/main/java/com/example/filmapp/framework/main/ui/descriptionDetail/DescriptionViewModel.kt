@@ -13,13 +13,12 @@ import retrofit2.Response
 
 class DescriptionViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
-    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
 ) : ViewModel() {
 
     fun getFilmForId(id: Int) {
         liveDataToObserve.value = AppState.Loading
         repositoryImpl.getFilmFromId(id, callBack)
-
     }
 
     private val callBack = object :
@@ -50,7 +49,7 @@ class DescriptionViewModel(
     }
 
     companion object {
-        private const val SERVER_ERROR = "Ошибка сервера"
+        private const val SERVER_ERROR = "Ошибка сервер"
         private const val REQUEST_ERROR = "Ошибка запроса на сервер"
         private const val CORRUPTED_DATA = "Неполные данные"
     }

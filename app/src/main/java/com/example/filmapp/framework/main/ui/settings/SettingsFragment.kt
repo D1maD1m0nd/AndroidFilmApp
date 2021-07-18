@@ -35,6 +35,8 @@ class SettingsFragment : Fragment() {
                 putBoolean(FIGHTER_KEY, fighters.isChecked)
                 putBoolean(TRILLER_KEY, triller.isChecked)
                 putBoolean(COMEDY_KEY, comedy.isChecked)
+                putBoolean(DRAMA_KEY, drama.isChecked)
+                putBoolean(SCREAMER_KEY, screamer.isChecked )
                 apply()
             }
         }
@@ -59,7 +61,7 @@ class SettingsFragment : Fragment() {
         const val COMEDY_KEY = "COMEDY"
         const val SCREAMER_KEY = "SCREAMER"
         const val DRAMA_KEY = "DRAMA"
-        val prefKeys = listOf<String>(FIGHTER_KEY, TRILLER_KEY, COMEDY_KEY, SCREAMER_KEY, DRAMA_KEY)
+        val prefKeys = listOf(FIGHTER_KEY, TRILLER_KEY, COMEDY_KEY, SCREAMER_KEY, DRAMA_KEY)
 
         @JvmStatic
         fun newInstance() = SettingsFragment()

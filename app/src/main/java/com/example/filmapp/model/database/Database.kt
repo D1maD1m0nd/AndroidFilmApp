@@ -13,7 +13,7 @@ abstract class Database : RoomDatabase() {
     abstract fun filmDao(): FilmDao
 
     companion object {
-        private const val DB_NAME = "add_data_base1.db"
+        private const val DB_NAME = "add_data_base2.db"
         val db: Database by lazy {
             Room.databaseBuilder(
                 App.appInstance,
