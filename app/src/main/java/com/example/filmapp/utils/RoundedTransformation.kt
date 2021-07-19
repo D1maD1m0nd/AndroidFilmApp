@@ -1,4 +1,4 @@
-package com.example.filmapp.model
+package com.example.filmapp.utils
 
 import android.graphics.*
 import com.squareup.picasso.Transformation

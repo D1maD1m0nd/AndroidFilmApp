@@ -16,16 +16,6 @@ import com.example.filmapp.model.entites.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmFragment : Fragment() {
-    interface OnItemViewClickListener {
-        fun onItemViewClick(film: Film)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = FilmFragment()
-        private const val COUNT_COLUMN_RC = 2
-    }
-
 
     private lateinit var binding: MainFragmentBinding
     private val viewModel: FilmViewModel by viewModel()
@@ -35,6 +25,7 @@ class FilmFragment : Fragment() {
             activity?.supportFragmentManager?.let {
                 val bundle = Bundle()
                 bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, film)
+                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 0)
                 it.beginTransaction()
                     .add(R.id.container, DescriptionFragment.newInstance(bundle))
                     .addToBackStack(null)
@@ -80,7 +71,17 @@ class FilmFragment : Fragment() {
 
         rcView.layoutManager = GridLayoutManager(context, COUNT_COLUMN_RC)
         rcView.adapter = MainAdapter(onListItemClickListener).apply { addFilms(films) }
+        rcView.setHasFixedSize(true)
     }
 
+    interface OnItemViewClickListener {
+        fun onItemViewClick(film: Film)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = FilmFragment()
+        private const val COUNT_COLUMN_RC = 2
+    }
 
 }

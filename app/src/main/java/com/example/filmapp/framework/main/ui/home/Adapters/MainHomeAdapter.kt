@@ -31,7 +31,6 @@ class MainHomeAdapter(
         private val binding: HomeFragmentItemBinding = HomeFragmentItemBinding.bind(item)
         fun bind(item: Item) = with(binding) {
             titleCategory.text = item.category
-
             val context = subRcView.context
             subRcView.layoutManager = LinearLayoutManager(
                 context,

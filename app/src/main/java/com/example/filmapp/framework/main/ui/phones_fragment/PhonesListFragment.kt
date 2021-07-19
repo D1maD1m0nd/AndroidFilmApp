@@ -27,22 +27,23 @@ class PhonesListFragment : Fragment() {
     private val permissionResult = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { result ->
-        if(result) {
+        if (result) {
             getContacts()
         } else {
-            Toast.makeText(context, "111111", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.not_permission), Toast.LENGTH_SHORT).show()
         }
     }
 
     private val permissionResultPhone = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { result ->
-        if(result) {
-            Toast.makeText(context, "Успех", Toast.LENGTH_SHORT).show()
+        if (result) {
+            Toast.makeText(context, getString(R.string.Ok), Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Не успех", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.not_ok), Toast.LENGTH_SHORT).show()
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,9 +63,10 @@ class PhonesListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun checkPermission() {
         context?.let {
-            when(PackageManager.PERMISSION_GRANTED) {
+            when (PackageManager.PERMISSION_GRANTED) {
                 ContextCompat.checkSelfPermission(it, Manifest.permission.READ_CONTACTS) -> {
                     getContacts()
                 }
@@ -75,26 +77,9 @@ class PhonesListFragment : Fragment() {
         }
     }
 
-    private fun getContacts(){
-        var numbers = ArrayList<String>()
+    private fun getContacts() {
         context?.let {
-            val cursorWithPhoneNumberContacts : Cursor? = it.contentResolver.query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                ContactsContract.CommonDataKinds.Phone._ID + " = " + id,
-                null,
-                null
-            )
-            cursorWithPhoneNumberContacts?.let { cursor ->
-                for(i in 0.. cursor.count) {
-                    if (cursor.moveToPosition(i)) {
-                        numbers.add(cursorWithPhoneNumberContacts.getString(cursorWithPhoneNumberContacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
-                    }
-                }
-            }
-
-            cursorWithPhoneNumberContacts?.close()
-            val cursorWithContactsContract : Cursor? = it.contentResolver.query(
+            val cursorWithContactsContract: Cursor? = it.contentResolver.query(
                 ContactsContract.Contacts.CONTENT_URI,
                 null,
                 null,
@@ -104,7 +89,7 @@ class PhonesListFragment : Fragment() {
             cursorWithContactsContract?.let { cursor ->
                 var phoneNumber = ""
                 for (i in 0..cursor.count) {
-                    if(cursor.moveToPosition(i)) {
+                    if (cursor.moveToPosition(i)) {
                         val name = cursor.getString(
                             cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
                         )
@@ -113,9 +98,10 @@ class PhonesListFragment : Fragment() {
                                 ContactsContract.Contacts._ID
                             )
                         )
+
                         val hasPhone =
                             cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                        if(hasPhone == "1") {
+                        if (hasPhone == TRUE_PHONE) {
                             val phones: Cursor? = it.contentResolver.query(
                                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                                 null,
@@ -136,7 +122,8 @@ class PhonesListFragment : Fragment() {
             cursorWithContactsContract?.close()
         }
     }
-    private fun addView( name : String, phone : String) = with(binding){
+
+    private fun addView(name: String, phone: String) = with(binding) {
         containerForContacts.addView(
             AppCompatTextView(requireContext()).apply {
                 text = "$name $phone"
@@ -149,10 +136,14 @@ class PhonesListFragment : Fragment() {
             }
         )
     }
+
     private fun requestPermission() {
         permissionResult.launch(Manifest.permission.READ_CONTACTS)
     }
+
     companion object {
+        const val TRUE_PHONE = "1"
+
         @JvmStatic
         fun newInstance() =
             PhonesListFragment()

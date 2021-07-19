@@ -12,23 +12,17 @@ import retrofit2.Callback
 
 class RepositoryImpl : Repository,
     CoroutineScope by MainScope() {
-    private val MAX_CAPACITY = 50
     private val MAX_PAGE = 500
 
 
     override fun getPopularityFilmsFromServer(page: Int, callback: Callback<FilmsList>) {
-        if (MAX_PAGE == page) {
-            return
+        if (MAX_PAGE >= page) {
+            FilmRepository.getFilms(page, callback)
         }
-        FilmRepository.getFilms(page, callback)
     }
 
     override fun getFilmFromId(id: Int, callback: Callback<Film>) {
         FilmRepository.getFilmForId(id, callback)
-    }
-
-    override fun getFilmFromLocalStorage(): Film {
-        TODO("Not yet implemented")
     }
 
     override fun saveEntity(film: Film) {
@@ -65,7 +59,6 @@ class RepositoryImpl : Repository,
 
     private fun convertFilmToEntity(film: Film): FilmEntity {
         return FilmEntity(
-            0,
             film.id,
             film.title,
             film.overview,

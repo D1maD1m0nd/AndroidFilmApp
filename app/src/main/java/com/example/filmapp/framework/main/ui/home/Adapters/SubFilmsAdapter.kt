@@ -8,7 +8,7 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.ItemFilmPreviewBinding
 import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
-import com.example.filmapp.model.RoundedTransformation
+import com.example.filmapp.utils.RoundedTransformation
 import com.example.filmapp.model.entites.Film
 import com.squareup.picasso.Picasso
 
