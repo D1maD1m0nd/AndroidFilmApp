@@ -62,10 +62,11 @@ class DescriptionFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.SuccessId -> {
-                appState.filmData.let {
-                    binding.apply {
+        binding.apply {
+            when (appState) {
+                is AppState.SuccessId -> {
+                    appState.filmData.let {
+
                         var genresFormats = ""
                         it.genre?.forEach({ genresFormats += it.name + "," })
                         title.text = it.title
@@ -75,23 +76,27 @@ class DescriptionFragment : Fragment() {
                         budget.text = "${getString(R.string.budget)} ${it.budget}$"
                         revenue.text = "${getString(R.string.revenue)} ${it.revenue}$"
                         dateRealise.text = "${getString(R.string.date_realise)} ${it.dateReleased}"
-                        description.text = "${getString(R.string.description)} ${it.overview}"
+                        description.text = "\t${it.overview}"
+                        loadingLayout.visibility = View.GONE
                         Picasso
                             .get()
                             .load("$imageStorageUrl${it.poster}")
                             .fit()
                             .into(postersTitle)
                     }
+
                 }
-            }
-            is AppState.Loading -> {
+                is AppState.Loading -> {
+                    loadingLayout.visibility = View.VISIBLE
+                }
+                is AppState.Error -> {
+                    Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
 
-            }
-            is AppState.Error -> {
-                Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
-
+                }
+                is AppState.Success -> TODO()
             }
         }
+
     }
 
     companion object {

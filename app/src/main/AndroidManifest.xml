@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.CALL_PRIVILEGED "/>
     <uses-feature android:name="android.hardware.telephony"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     
 
     <application
@@ -23,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA01g1X4kJVSwTaHT9FhIpcdHk_qM5be_8" />
     </application>
 
 </manifest>

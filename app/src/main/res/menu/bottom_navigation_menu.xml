@@ -11,10 +11,10 @@
         android:icon="@drawable/filmlist"
         android:title="@string/history" />
     <item
-        android:id="@+id/likes"
+        android:id="@+id/maps"
         android:enabled="true"
-        android:icon="@drawable/heart"
-        android:title="@string/like" />
+        android:icon="@drawable/maps"
+        android:title="@string/map" />
     <item
         android:id="@+id/settings"
         android:enabled="true"

@@ -10,7 +10,6 @@ import kotlinx.coroutines.*
 class FilmViewModel(private val repositoryImpl: Repository) : ViewModel(),
     CoroutineScope by MainScope() {
 
-    // TODO: Implement the ViewModel
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
 
 

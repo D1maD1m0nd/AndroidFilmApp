@@ -74,12 +74,15 @@ class HomeFragment : Fragment() {
             is AppState.Success -> {
                 val filmsData = appState.filmsData
                 updateFilmsList(filmsData)
+                binding.homeFragment.visibility = View.GONE
             }
             is AppState.Loading -> {
+                binding.homeFragment.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
             }
+            is AppState.SuccessId -> TODO()
         }
     }
 

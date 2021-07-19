@@ -11,14 +11,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val SERVER_ERROR = "Ошибка сервера"
-private const val REQUEST_ERROR = "Ошибка запроса на сервер"
-private const val CORRUPTED_DATA = "Неполные данные"
 
 class HomeFragmentViewModel(
     private val repositoryImpl: Repository = RepositoryImpl(),
     val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    var filtersGenre: ArrayList<Int> = ArrayList(10),
+    var filtersGenre: ArrayList<Int> = ArrayList(CAPACITY_FILTER),
     private var page: Int = 0
 ) :
     ViewModel() {
@@ -27,7 +24,7 @@ class HomeFragmentViewModel(
         repositoryImpl.getPopularityFilmsFromServer(++page, callBack)
     }
 
-    private val films = ArrayList<Film>(500)
+    private val films = ArrayList<Film>(FILM_CAPACITY)
 
     private val callBack = object :
         Callback<FilmsList> {
@@ -48,7 +45,7 @@ class HomeFragmentViewModel(
 
         private fun checkResponse(serverResponse: FilmsList): AppState {
             var fact = serverResponse.results
-            if(filtersGenre.isNotEmpty()) {
+            if (filtersGenre.isNotEmpty()) {
                 fact = fact.filter {
                     var isFilter = false
                     for (id in filtersGenre) {
@@ -68,5 +65,13 @@ class HomeFragmentViewModel(
                 AppState.Success(films)
             }
         }
+    }
+
+    companion object {
+        private const val SERVER_ERROR = "Ошибка сервера"
+        private const val REQUEST_ERROR = "Ошибка запроса на сервер"
+        private const val CORRUPTED_DATA = "Неполные данные"
+        private const val CAPACITY_FILTER = 10
+        private const val FILM_CAPACITY = 500
     }
 }

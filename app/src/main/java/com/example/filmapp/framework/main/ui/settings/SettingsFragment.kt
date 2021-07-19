@@ -2,17 +2,15 @@ package com.example.filmapp.framework.main.ui.settings
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.filmapp.R
+import androidx.fragment.app.Fragment
 import com.example.filmapp.databinding.FragmentSettingsBinding
-import com.example.filmapp.databinding.MainFragmentBinding
 
 
 class SettingsFragment : Fragment() {
-    private lateinit var bind : FragmentSettingsBinding
+    private lateinit var bind: FragmentSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,21 +22,23 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind.accept.setOnClickListener{
-                saveFilters()
+        bind.accept.setOnClickListener {
+            saveFilters()
         }
         readPref()
     }
 
-    private fun saveFilters(){
+    private fun saveFilters() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-       sharedPref?.edit()?.apply {
-           bind.apply {
-               putBoolean(FIGHTER_KEY, fighters.isChecked)
-               putBoolean(TRILLER_KEY, triller.isChecked)
-               putBoolean(COMEDY_KEY, comedy.isChecked )
-               apply()
-           }
+        sharedPref?.edit()?.apply {
+            bind.apply {
+                putBoolean(FIGHTER_KEY, fighters.isChecked)
+                putBoolean(TRILLER_KEY, triller.isChecked)
+                putBoolean(COMEDY_KEY, comedy.isChecked)
+                putBoolean(DRAMA_KEY, drama.isChecked)
+                putBoolean(SCREAMER_KEY, screamer.isChecked )
+                apply()
+            }
         }
     }
 
@@ -54,14 +54,16 @@ class SettingsFragment : Fragment() {
             }
         }
     }
+
     companion object {
         const val FIGHTER_KEY = "FIGHTER"
         const val TRILLER_KEY = "TRILLER"
         const val COMEDY_KEY = "COMEDY"
         const val SCREAMER_KEY = "SCREAMER"
         const val DRAMA_KEY = "DRAMA"
-        val prefKeys = listOf<String>(FIGHTER_KEY,TRILLER_KEY,COMEDY_KEY,SCREAMER_KEY,DRAMA_KEY)
-            @JvmStatic
+        val prefKeys = listOf(FIGHTER_KEY, TRILLER_KEY, COMEDY_KEY, SCREAMER_KEY, DRAMA_KEY)
+
+        @JvmStatic
         fun newInstance() = SettingsFragment()
 
     }
