@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentHomeBinding
 import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
@@ -119,7 +120,7 @@ class HomeFragment : Fragment() {
         )
         const val DEFAULT_ID = 550
 
-        @JvmStatic
+
         fun newInstance() = HomeFragment()
 
     }

@@ -102,7 +102,7 @@ class DescriptionFragment : Fragment() {
         const val BUNDLE_EXTRA = "FilmData"
         const val BUNDLE_EXTRA_INT = "FilmId"
 
-        @JvmStatic
+
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()
             fragment.arguments = bundle

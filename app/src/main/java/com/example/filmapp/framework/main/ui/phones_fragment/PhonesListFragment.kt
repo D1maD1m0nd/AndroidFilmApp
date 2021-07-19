@@ -144,7 +144,7 @@ class PhonesListFragment : Fragment() {
     companion object {
         const val TRUE_PHONE = "1"
 
-        @JvmStatic
+
         fun newInstance() =
             PhonesListFragment()
     }

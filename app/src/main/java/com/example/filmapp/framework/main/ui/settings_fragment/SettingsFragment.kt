@@ -63,7 +63,6 @@ class SettingsFragment : Fragment() {
         const val DRAMA_KEY = "DRAMA"
         val prefKeys = listOf(FIGHTER_KEY, TRILLER_KEY, COMEDY_KEY, SCREAMER_KEY, DRAMA_KEY)
 
-        @JvmStatic
         fun newInstance() = SettingsFragment()
 
     }
