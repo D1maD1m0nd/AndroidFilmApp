@@ -1,6 +1,8 @@
 package com.example.filmapp
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.filmapp.databinding.MainActivityBinding
@@ -8,7 +10,9 @@ import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
 import com.example.filmapp.framework.main.ui.map_fragment.MapFragment
 import com.example.filmapp.framework.main.ui.phones_fragment.PhonesListFragment
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment
+import com.example.filmapp.framework.main.ui.settings_fragment.SettingsFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind: MainActivityBinding

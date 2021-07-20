@@ -7,6 +7,7 @@ import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.entites.Genre
 import com.example.filmapp.model.rest.FilmRepository
 import kotlinx.coroutines.*
+import okhttp3.Dispatcher
 import retrofit2.Callback
 
 
@@ -26,8 +27,8 @@ class RepositoryImpl : Repository,
     }
 
     override fun saveEntity(film: Film) {
-        launch {
-            async(Dispatchers.IO) { Database.db.filmDao().insert(convertFilmToEntity(film)) }
+        launch(Dispatchers.IO) {
+           Database.db.filmDao().insert(convertFilmToEntity(film))
         }
 
     }

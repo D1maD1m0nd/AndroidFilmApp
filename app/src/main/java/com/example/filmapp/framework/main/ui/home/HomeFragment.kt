@@ -15,8 +15,8 @@ import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragme
 import com.example.filmapp.framework.main.ui.home.Adapters.Item
 import com.example.filmapp.framework.main.ui.home.Adapters.MainHomeAdapter
 import com.example.filmapp.framework.main.ui.main_film_screen.FilmFragment
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment
-import com.example.filmapp.framework.main.ui.settings.SettingsFragment.Companion.prefKeys
+import com.example.filmapp.framework.main.ui.settings_fragment.SettingsFragment
+import com.example.filmapp.framework.main.ui.settings_fragment.SettingsFragment.Companion.prefKeys
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
         )
         const val DEFAULT_ID = 550
 
-        @JvmStatic
+
         fun newInstance() = HomeFragment()
 
     }

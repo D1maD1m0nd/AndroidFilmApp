@@ -79,7 +79,7 @@ class FilmFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
+
         fun newInstance() = FilmFragment()
         private const val COUNT_COLUMN_RC = 2
     }
