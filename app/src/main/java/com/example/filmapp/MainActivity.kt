@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomNavigationMenu() = with(bind) {
-        navView.setOnNavigationItemSelectedListener { item ->
+        navView.setOnItemSelectedListener  { item ->
             when (item.itemId) {
                 R.id.home -> {
                     openFragment(HomeFragment.newInstance())
@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.maps -> {
-                    //TODO удалить парметры в фабрике фрагмента
                     openFragment(MapFragment.newInstance())
                     supportFragmentManager.beginTransaction()
                     true

@@ -29,8 +29,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imagePosters"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/card_size"
-                app:srcCompat="@drawable/posters" />
+                android:layout_height="@dimen/card_size" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/postersTitle"

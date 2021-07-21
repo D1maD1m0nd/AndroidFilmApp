@@ -30,7 +30,6 @@ class SubFilmsAdapter(
         private val binding = ItemFilmPreviewBinding.bind(item)
         fun bind(film: Film) = with(binding) {
             postersTitle.text = film.title
-            imagePosters.setImageResource(R.drawable.kinkongposters)
             Picasso
                 .get()
                 .load("$IMAGE_URL${film.poster}")
