@@ -3,26 +3,26 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/films" />
     <item
         android:id="@+id/main"
         android:enabled="true"
-        android:icon="@drawable/filmlist"
+        android:icon="@drawable/ic_baseline_local_movies_24"
         android:title="@string/history" />
     <item
         android:id="@+id/maps"
         android:enabled="true"
-        android:icon="@drawable/maps"
+        android:icon="@drawable/ic_baseline_map_24"
         android:title="@string/map" />
     <item
         android:id="@+id/settings"
         android:enabled="true"
-        android:icon="@drawable/filter"
+        android:icon="@drawable/ic_baseline_filter_alt_24"
         android:title="@string/settings" />
     <item
         android:id="@+id/phones"
         android:enabled="true"
-        android:icon="@drawable/telephone"
+        android:icon="@drawable/ic_baseline_perm_phone_msg_24"
         android:title="@string/settings" />
 </menu>
