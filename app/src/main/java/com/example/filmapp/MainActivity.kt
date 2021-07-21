@@ -1,6 +1,7 @@
 package com.example.filmapp
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,11 +21,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bind = MainActivityBinding.inflate(layoutInflater)
         setContentView(bind.root)
-        if (savedInstanceState == null) {
             initBottomNavigationMenu()
-        }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(ITEM_SELECTED_TAG,bind.navView.selectedItemId)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        bind.navView.selectedItemId = savedInstanceState.getInt(ITEM_SELECTED_TAG, R.id.main)
+    }
     private fun initBottomNavigationMenu() = with(bind) {
         navView.setOnItemSelectedListener  { item ->
             when (item.itemId) {
@@ -52,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         //для открытия страницы по дефолту
         navView.selectedItemId = R.id.main
     }
@@ -61,5 +70,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .commitAllowingStateLoss()
+    }
+
+    companion object {
+        private const val ITEM_SELECTED_TAG = "SaveSelectItemNav"
     }
 }

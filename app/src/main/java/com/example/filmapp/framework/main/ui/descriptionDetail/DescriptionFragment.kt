@@ -11,6 +11,7 @@ import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentDescriptionBinding
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.utils.RoundedTransformation
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,24 +37,6 @@ class DescriptionFragment : Fragment() {
 
         //сделано для того что бы не писать отдельную переменную под возвращающее значение binding
         binding.apply {
-            arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
-                var genresFormats = ""
-                it.genre?.forEach({ genresFormats += it.name + "," })
-                title.text = it.title
-                genre.text = "Жанры: ${genresFormats.trimEnd(',')}"
-                duration.text = "Длительность: ${it.runtime} m"
-                vote.text = "Оценка: ${it.voteAverage}"
-                budget.text = "Бюжет: ${it.budget}$"
-                revenue.text = "Сборы: ${it.revenue}$"
-                dateRealise.text = "Дата выпуска: ${it.dateReleased}"
-                description.text = "Описание: ${it.overview}"
-                Picasso
-                    .get()
-                    .load("$imageStorageUrl${it.poster}")
-                    .fit()
-                    .into(postersTitle)
-            }
-
             arguments?.getInt(BUNDLE_EXTRA_INT)?.let {
                 viewModel.getFilmForId(it)
             }
@@ -71,16 +54,17 @@ class DescriptionFragment : Fragment() {
                         it.genre?.forEach({ genresFormats += it.name + "," })
                         title.text = it.title
                         genre.text = "${getString(R.string.genre)} ${genresFormats.trimEnd(',')}"
-                        duration.text = "${getString(R.string.runtime)} ${it.runtime} m"
+                        duration.text = "${getString(R.string.runtime)} ${it.runtime} ${getString(R.string.minutes)}"
                         vote.text = "${getString(R.string.vote_average)} ${it.voteAverage}"
-                        budget.text = "${getString(R.string.budget)} ${it.budget}$"
-                        revenue.text = "${getString(R.string.revenue)} ${it.revenue}$"
+                        budget.text = "${getString(R.string.budget)} ${it.budget}"
+                        revenue.text = "${getString(R.string.revenue)} ${it.revenue}"
                         dateRealise.text = "${getString(R.string.date_realise)} ${it.dateReleased}"
                         description.text = "\t${it.overview}"
                         Picasso
                             .get()
                             .load("$imageStorageUrl${it.poster}")
                             .fit()
+                            .transform(RoundedTransformation(RADIUS, DEFAULT_MARGIN))
                             .into(postersTitle)
                     }
 
@@ -101,7 +85,8 @@ class DescriptionFragment : Fragment() {
     companion object {
         const val BUNDLE_EXTRA = "FilmData"
         const val BUNDLE_EXTRA_INT = "FilmId"
-
+        private const val DEFAULT_MARGIN = 0
+        private const val RADIUS = 25
 
         fun newInstance(bundle: Bundle): DescriptionFragment {
             val fragment = DescriptionFragment()

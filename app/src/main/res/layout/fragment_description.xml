@@ -8,10 +8,28 @@
     android:clickable="true"
     android:focusable="true">
 
+    <ImageView
+        android:id="@+id/imageMoney1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/dateRealise"
+        app:layout_constraintStart_toEndOf="@+id/revenue"
+        app:layout_constraintTop_toBottomOf="@+id/budget"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24" />
+
+    <ImageView
+        android:id="@+id/imageMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/revenue"
+        app:layout_constraintStart_toEndOf="@+id/budget"
+        app:layout_constraintTop_toBottomOf="@+id/vote"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/postersTitle"
-        android:layout_width="225dp"
-        android:layout_height="275dp"
+        android:layout_width="175dp"
+        android:layout_height="215dp"
         android:layout_marginTop="16dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +44,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/title"
+        android:textColor="@color/black"
         android:textSize="@dimen/title_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/genre"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
@@ -48,6 +68,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/duration"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
         app:layout_constraintTop_toBottomOf="@+id/genre" />
 
@@ -58,6 +79,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/vote_average"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
         app:layout_constraintTop_toBottomOf="@+id/duration" />
 
@@ -68,6 +90,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/budget"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
         app:layout_constraintTop_toBottomOf="@+id/vote" />
 
@@ -78,9 +101,19 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/revenue"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
         app:layout_constraintTop_toBottomOf="@+id/budget" />
 
+
+    <ImageView
+        android:id="@+id/imageStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/budget"
+        app:layout_constraintStart_toEndOf="@+id/vote"
+        app:layout_constraintTop_toBottomOf="@+id/duration"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/dateRealise"
@@ -89,6 +122,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/date_realise"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/postersTitle"
         app:layout_constraintTop_toBottomOf="@+id/revenue" />
@@ -112,25 +146,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:lineSpacingMultiplier="1.25"
                 android:text="" />
         </LinearLayout>
     </ScrollView>
+
     <FrameLayout
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
 
+        android:visibility="visible"
         tools:visibility="visible">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
