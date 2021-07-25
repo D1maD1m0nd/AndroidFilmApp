@@ -8,27 +8,23 @@ import android.support.annotation.RequiresApi
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.filmapp.R
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class MessagingService : FirebaseMessagingService() {
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-    }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         Log.w("TEST", message.data.toString())
-        if(message.data.isNotEmpty()) {
+        if (message.data.isNotEmpty()) {
             handleDataMessage(message.data.toMap())
         }
     }
 
-    private fun handleDataMessage(data : Map<String, String>) {
+    private fun handleDataMessage(data: Map<String, String>) {
         val title = data[PUSH_KEY_TITLE]
         val message = data[PUSH_KEY_MESSAGE]
-        if(!title.isNullOrBlank() && !message.isNullOrBlank()) {
+        if (!title.isNullOrBlank() && !message.isNullOrBlank()) {
             showNotification(title, message)
         }
     }
@@ -62,6 +58,7 @@ class MessagingService : FirebaseMessagingService() {
         }
         notificationManager.createNotificationChannel(channel)
     }
+
     companion object {
         private const val PUSH_KEY_TITLE = "title"
         private const val PUSH_KEY_MESSAGE = "message"

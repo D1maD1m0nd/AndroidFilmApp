@@ -19,6 +19,7 @@ import com.example.filmapp.framework.main.ui.settings_fragment.SettingsFragment
 import com.example.filmapp.framework.main.ui.settings_fragment.SettingsFragment.Companion.prefKeys
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.utils.showFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -35,14 +36,9 @@ class HomeFragment : Fragment() {
 
     private val onListItemClickListener = object : FilmFragment.OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
-            activity?.supportFragmentManager?.let {
-                val bundle = Bundle()
-                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: DEFAULT_ID)
-                it.beginTransaction()
-                    .add(R.id.container, DescriptionFragment.newInstance(bundle))
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss()
-            }
+            val bundle = Bundle()
+            bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: DEFAULT_ID)
+            showFragment(DescriptionFragment.newInstance(bundle))
         }
     }
     private lateinit var binding: FragmentHomeBinding

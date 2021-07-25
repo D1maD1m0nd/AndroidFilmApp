@@ -6,8 +6,10 @@ import com.example.filmapp.model.entites.Film
 import com.example.filmapp.model.entites.FilmsList
 import com.example.filmapp.model.entites.Genre
 import com.example.filmapp.model.rest.FilmRepository
-import kotlinx.coroutines.*
-import okhttp3.Dispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import retrofit2.Callback
 
 
@@ -28,7 +30,7 @@ class RepositoryImpl : Repository,
 
     override fun saveEntity(film: Film) {
         launch(Dispatchers.IO) {
-           Database.db.filmDao().insert(convertFilmToEntity(film))
+            Database.db.filmDao().insert(convertFilmToEntity(film))
         }
 
     }
