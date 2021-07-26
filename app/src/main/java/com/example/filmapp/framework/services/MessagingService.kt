@@ -15,9 +15,6 @@ import com.google.firebase.messaging.RemoteMessage
 class MessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-//        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-//
-//        }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {

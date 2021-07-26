@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -20,6 +21,16 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            def keystoreProperties = new Properties()
+            keystoreProperties.load(project.rootProject.file("keystore.properties").newDataInputStream())
+            storeFile file(keystoreProperties["FILE_PATH"])
+            storePassword keystoreProperties["STORE_PASSWORD"]
+            keyAlias keystoreProperties["ALIAS"]
+            keyPassword keystoreProperties["STORE_PASSWORD"]
+        }
+    }
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
@@ -28,8 +39,17 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "TYPE", '"RELEASE"'
+        }
+        debug {
+            versionNameSuffix ".debug"
+        }
+        staging {
+            initWith debug
+            versionNameSuffix ".staging"
         }
     }
     compileOptions {
