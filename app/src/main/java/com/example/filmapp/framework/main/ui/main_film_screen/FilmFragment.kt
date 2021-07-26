@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.filmapp.R
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
+import com.example.filmapp.framework.main.ui.home.HomeFragment
 import com.example.filmapp.framework.main.ui.main_film_screen.adapter.MainAdapter
 import com.example.filmapp.model.AppState
 import com.example.filmapp.model.entites.Film
+import com.example.filmapp.utils.showFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmFragment : Fragment() {
@@ -22,15 +23,9 @@ class FilmFragment : Fragment() {
 
     private val onListItemClickListener = object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
-            activity?.supportFragmentManager?.let {
-                val bundle = Bundle()
-                bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, film)
-                bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: 0)
-                it.beginTransaction()
-                    .add(R.id.container, DescriptionFragment.newInstance(bundle))
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss()
-            }
+            val bundle = Bundle()
+            bundle.putInt(DescriptionFragment.BUNDLE_EXTRA_INT, film.id ?: HomeFragment.DEFAULT_ID)
+            showFragment(DescriptionFragment.newInstance(bundle))
         }
     }
 
