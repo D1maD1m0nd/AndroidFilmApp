@@ -10,16 +10,11 @@ import retrofit2.http.Query
 interface FilmApi {
     @GET("popular")
     fun getFilmDtoPopular(
-        @Query("page") page: Int
-    ): Call<FilmsList>
-
-    @GET("upcoming")
-    fun getFilmUpcoming(
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): Call<FilmsList>
 
     @GET("{id}")
     fun getFilmFromId(
-        @Path("id") id: Int
+        @Path("id") id: Int,
     ): Call<Film>
 }

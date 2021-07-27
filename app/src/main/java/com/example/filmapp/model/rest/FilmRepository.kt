@@ -18,15 +18,11 @@ object FilmRepository {
         adapter.create(FilmApi::class.java)
     }
 
-    fun getPopularFilms(page: Int, callback: Callback<FilmsList>) {
+    fun getFilms(page: Int, callback: Callback<FilmsList>) {
         api.getFilmDtoPopular(page).enqueue(callback)
     }
 
     fun getFilmForId(id: Int, callback: Callback<Film>) {
         api.getFilmFromId(id).enqueue(callback)
-    }
-
-    fun getUpcomingFilms(page: Int, callback: Callback<FilmsList>) {
-        api.getFilmUpcoming(page).enqueue(callback)
     }
 }

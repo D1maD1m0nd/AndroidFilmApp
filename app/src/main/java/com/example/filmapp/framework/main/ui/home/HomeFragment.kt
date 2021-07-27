@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentHomeBinding
 import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
 import com.example.filmapp.framework.main.ui.home.Adapters.Item
@@ -62,17 +63,13 @@ class HomeFragment : Fragment() {
         viewModel.filtersGenre = getFilters()
         viewModel.liveDataToObserve.observe(viewLifecycleOwner, observer)
         viewModel.getPopularFilms()
-        viewModel.getUpcomingFilm()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
-            is AppState.SuccessFilmsData -> {
-                val items = ArrayList<Item>()
-                appState.filmData.forEach {
-                    items.add(it.value)
-                }
-                updateFilmsList(items)
+            is AppState.Success -> {
+                val filmsData = appState.filmsData
+                updateFilmsList(filmsData)
                 binding.homeFragment.visibility = View.GONE
             }
             is AppState.Loading -> {
@@ -82,7 +79,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, appState.error.message, Toast.LENGTH_SHORT).show()
             }
             is AppState.SuccessId -> TODO()
-            is AppState.Success -> TODO()
         }
     }
 
@@ -92,8 +88,9 @@ class HomeFragment : Fragment() {
         rcView.adapter = adapter
     }
 
-    private fun updateFilmsList(films: ArrayList<Item>) {
-        adapter.addItems(films)
+    private fun updateFilmsList(films: ArrayList<Film>) = with(binding) {
+        val items = ArrayList<Item>().apply { add(Item(films, getString(R.string.pupularity))) }
+        adapter.addItems(items)
     }
 
     private fun getFilters(): ArrayList<Int> {
@@ -118,7 +115,7 @@ class HomeFragment : Fragment() {
             SettingsFragment.FIGHTER_KEY to 28
         )
         const val DEFAULT_ID = 550
-        const val ITEMS_CAPACITY = 3
+
 
         fun newInstance() = HomeFragment()
 
