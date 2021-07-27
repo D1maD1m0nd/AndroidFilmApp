@@ -1,6 +1,5 @@
 *.iml
 .gradle
-.jks
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -11,9 +10,6 @@
 .DS_Store
 /build
 /captures
-/app/filmApp.jks
 .externalNativeBuild
 .cxx
 local.properties
-keystore.properties
-
