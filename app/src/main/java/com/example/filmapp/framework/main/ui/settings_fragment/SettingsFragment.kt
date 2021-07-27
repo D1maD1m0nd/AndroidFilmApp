@@ -36,7 +36,7 @@ class SettingsFragment : Fragment() {
                 putBoolean(TRILLER_KEY, triller.isChecked)
                 putBoolean(COMEDY_KEY, comedy.isChecked)
                 putBoolean(DRAMA_KEY, drama.isChecked)
-                putBoolean(SCREAMER_KEY, screamer.isChecked)
+                putBoolean(SCREAMER_KEY, screamer.isChecked )
                 apply()
             }
         }

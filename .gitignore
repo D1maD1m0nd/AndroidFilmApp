@@ -1,7 +1,6 @@
 *.iml
 .gradle
 .jks
-/keystore.properties
 /local.properties
 /.idea/caches
 /.idea/libraries

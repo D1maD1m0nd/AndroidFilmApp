@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.filmapp.R
 import com.example.filmapp.databinding.FragmentDescriptionBinding
 import com.example.filmapp.model.AppState
+import com.example.filmapp.model.entites.Film
 import com.example.filmapp.utils.RoundedTransformation
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,8 +54,7 @@ class DescriptionFragment : Fragment() {
                         it.genre?.forEach({ genresFormats += it.name + "," })
                         title.text = it.title
                         genre.text = "${getString(R.string.genre)} ${genresFormats.trimEnd(',')}"
-                        duration.text =
-                            "${getString(R.string.runtime)} ${it.runtime} ${getString(R.string.minutes)}"
+                        duration.text = "${getString(R.string.runtime)} ${it.runtime} ${getString(R.string.minutes)}"
                         vote.text = "${getString(R.string.vote_average)} ${it.voteAverage}"
                         budget.text = "${getString(R.string.budget)} ${it.budget}"
                         revenue.text = "${getString(R.string.revenue)} ${it.revenue}"
@@ -83,6 +83,7 @@ class DescriptionFragment : Fragment() {
     }
 
     companion object {
+        const val BUNDLE_EXTRA = "FilmData"
         const val BUNDLE_EXTRA_INT = "FilmId"
         private const val DEFAULT_MARGIN = 0
         private const val RADIUS = 25
