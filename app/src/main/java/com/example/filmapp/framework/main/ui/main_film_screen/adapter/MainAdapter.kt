@@ -40,8 +40,7 @@ class MainAdapter(private var onItemViewClickListener: FilmFragment.OnItemViewCl
         return FilmViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) =
-        holder.bind(films[position])
+    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) = holder.bind(films[position])
 
 
     override fun getItemCount() = films.size

@@ -32,32 +32,16 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigationMenu() = with(bind) {
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> {
-                    HomeFragment.newInstance().showFragment(this@MainActivity)
-                    true
-                }
-                R.id.main -> {
-                    FilmFragment.newInstance().showFragment(this@MainActivity)
-                    true
-                }
-                R.id.maps -> {
-                    MapFragment.newInstance().showFragment(this@MainActivity)
-                    true
-                }
-                R.id.settings -> {
-                    SettingsFragment.newInstance().showFragment(this@MainActivity)
-                    true
-                }
-                R.id.phones -> {
-                    PhonesListFragment.newInstance().showFragment(this@MainActivity)
-                    true
-                }
-                else -> false
+                R.id.home -> HomeFragment.newInstance().showFragment(this@MainActivity)
+                R.id.main -> FilmFragment.newInstance().showFragment(this@MainActivity)
+                R.id.maps -> MapFragment.newInstance().showFragment(this@MainActivity)
+                R.id.settings -> SettingsFragment.newInstance().showFragment(this@MainActivity)
+                R.id.phones -> PhonesListFragment.newInstance().showFragment(this@MainActivity)
+                else -> FilmFragment.newInstance().showFragment(this@MainActivity)
             }
+            return@setOnItemSelectedListener true
         }
-
-        //для открытия страницы по дефолту
-        navView.selectedItemId = R.id.main
+        navView.selectedItemId = R.id.home
     }
 
     companion object {
