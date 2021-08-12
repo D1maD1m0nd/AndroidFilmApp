@@ -66,7 +66,7 @@ class FilmFragment : Fragment() {
 
         rcView.layoutManager = GridLayoutManager(context, COUNT_COLUMN_RC)
         rcView.adapter = MainAdapter(onListItemClickListener).apply { addFilms(films) }
-        //rcView.setHasFixedSize(true)
+        rcView.setHasFixedSize(true)
     }
 
     interface OnItemViewClickListener {
