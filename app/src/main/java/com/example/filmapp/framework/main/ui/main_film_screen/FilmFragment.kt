@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmapp.MainActivity
 import com.example.filmapp.databinding.MainFragmentBinding
 import com.example.filmapp.framework.main.ui.descriptionDetail.DescriptionFragment
 import com.example.filmapp.framework.main.ui.home.HomeFragment
@@ -47,10 +48,12 @@ class FilmFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) = with(binding) {
+        val context = requireContext() as MainActivity
         when (appState) {
             is AppState.Success -> {
                 loadingLayout.visibility = View.GONE
                 val filmsData = appState.filmsData
+                context.updateNumberBadge(filmsData.size)
                 initRcView(filmsData)
             }
             is AppState.Loading -> {
